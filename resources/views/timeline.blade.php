@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Timeline — DevHub</title>
+    <title>Timeline — OpsNexus</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}" />
@@ -12,72 +12,12 @@
 
 <body>
     <div class="app-layout">
-        <aside class="sidebar" id="sidebar">
-            <div class="sidebar-logo">
-                <div class="logo-icon">D</div><span class="logo-text">DevHub Pro</span>
-            </div>
-            <nav class="sidebar-nav">
-                <div class="sidebar-section-title">Main</div>
-                <div class="nav-item" data-page="{{ route('index') }}">
-                    <div class="nav-icon">⊞</div><span class="nav-label">Dashboard</span>
-                </div>
-                <div class="nav-item" data-page="{{ route('projects') }}">
-                    <div class="nav-icon">◫</div><span class="nav-label">Projects</span><span
-                        class="nav-badge">12</span>
-                </div>
-                <div class="nav-item" data-page="{{ route('payments') }}">
-                    <div class="nav-icon">💳</div><span class="nav-label">Payments</span>
-                </div>
-                <div class="nav-item active" data-page="{{ route('timeline') }}">
-                    <div class="nav-icon">📅</div><span class="nav-label">Timeline</span>
-                </div>
-                <div class="sidebar-section-title">Development</div>
-                <div class="nav-item" data-page="{{ route('versioncontrol') }}">
-                    <div class="nav-icon">⎇</div><span class="nav-label">Version Control</span>
-                </div>
-                <div class="nav-item" data-page="{{ route('developer') }}">
-                    <div class="nav-icon">👥</div><span class="nav-label">Developers</span>
-                </div>
-                <div class="sidebar-section-title">Account</div>
-                <div class="nav-item" data-page="{{ route('subscription') }}">
-                    <div class="nav-icon">⭐</div><span class="nav-label">Subscriptions</span>
-                </div>
-                <div class="nav-item" data-page="{{ route('notification') }}">
-                    <div class="nav-icon">🔔</div><span class="nav-label">Notifications</span><span
-                        class="nav-badge">3</span>
-                </div>
-                <div class="nav-item" data-page="{{ route('settings') }}">
-                    <div class="nav-icon">⚙</div><span class="nav-label">Settings</span>
-                </div>
-            </nav>
-            <div class="sidebar-footer"><button class="sidebar-toggle-btn" id="sidebar-toggle"><span
-                        class="toggle-icon">«</span><span class="toggle-label">Collapse</span></button></div>
-        </aside>
+        <!-- SIDEBAR -->
+        @include('layouts.side-navbar')
 
         <div class="main-area">
-            <header class="header">
-                <div class="header-left"><span class="page-title">Timeline</span><span class="workspace-badge">⬡ DevHub
-                        Workspace</span></div>
-                <div class="search-bar"><span class="search-icon">🔍</span><input type="text"
-                        placeholder="Search milestones..." /></div>
-                <div class="header-right">
-                    <button class="header-icon-btn" id="notif-bell">🔔<span class="notif-dot"></span></button>
-                    <div style="position:relative">
-                        <button class="profile-btn">
-                            <div class="avatar">JD</div>
-                            <div class="profile-info">
-                                <div class="profile-name">John Doe</div>
-                                <div class="profile-role">Admin</div>
-                            </div><span class="dropdown-arrow">▾</span>
-                        </button>
-                        <div class="profile-dropdown">
-                            <div class="dropdown-item" onclick="window.location.href='{{ route('settings') }}'">⚙ Settings</div>
-                            <div class="dropdown-divider"></div>
-                            <div class="dropdown-item" style="color:#ef4444">⬡ Sign Out</div>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <!-- HEADER -->
+            @include('layouts.header')
 
             <main class="content">
                 <div class="page-header">
