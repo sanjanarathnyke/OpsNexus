@@ -18,7 +18,6 @@
         <div class="main-area">
             <!-- HEADER -->
             @include('layouts.header')
-
             <main class="content">
                 <div class="page-header">
                     <div>
@@ -26,305 +25,133 @@
                         <p>Visual milestones and phase tracking for all projects.</p>
                     </div>
                     <div style="display:flex;gap:8px">
-                        <select class="form-input" style="width:auto;padding:7px 12px">
-                            <option>All Projects</option>
-                            <option>ERP_SYSTEM</option>
-                            <option>MOBILE_APP</option>
-                            <option>API_SERVICE</option>
+                        <select class="form-input" id="projectFilter" style="width:auto;padding:7px 12px" onchange="filterProjects(this.value)">
+                            <option value="all">All Projects</option>
+                            @foreach($projects as $project)
+                            <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                            @endforeach
                         </select>
-                        <button class="btn btn-primary" onclick="showToast('success','New milestone added')">+ Add
+                        <button class="btn btn-primary" onclick="openModal()">+ Add
                             Milestone</button>
                     </div>
                 </div>
 
-                <div class="grid-2">
-                    <!-- ERP SYSTEM Timeline -->
-                    <div class="card">
+                <div class="grid-2" id="timelineGrid">
+                    @foreach($timelines as $projectName => $milestones)
+                    @php
+                        $project = $projects->where('project_name', $projectName)->first();
+                        $completedCount = $milestones->where('status', 'Completed')->count();
+                        $totalCount = $milestones->count();
+                        $progress = $totalCount > 0 ? round(($completedCount / $totalCount) * 100) : 0;
+                    @endphp
+                    <div class="card project-card" data-project="{{ $projectName }}">
                         <div class="card-header">
                             <div>
-                                <div class="card-title">ERP_SYSTEM</div>
-                                <div class="card-subtitle">Enterprise Resource Planning · Due Mar 30</div>
+                                <div class="card-title">{{ $projectName }}</div>
+                                <div class="card-subtitle">{{ $project->description ?? '' }}</div>
                             </div>
-                            <span class="badge badge-success">92% Complete</span>
+                            <span class="badge badge-success">{{ $progress }}% Complete</span>
                         </div>
                         <div class="card-body">
                             <div style="margin-bottom:12px">
                                 <div style="display:flex;justify-content:space-between;margin-bottom:6px">
                                     <span style="font-size:12px;color:var(--text-muted)">Overall Progress</span>
-                                    <span style="font-size:12px;font-weight:700;color:var(--accent)">92%</span>
+                                    <span style="font-size:12px;font-weight:700;color:var(--accent)">{{ $progress }}%</span>
                                 </div>
                                 <div class="progress-bar-wrap">
-                                    <div class="progress-bar-fill" style="width:92%"></div>
+                                    <div class="progress-bar-fill" style="width:{{ $progress }}%"></div>
                                 </div>
                             </div>
                             <div class="timeline">
+                                @foreach($milestones as $milestone)
                                 <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
+                                    <div class="timeline-dot {{ $milestone->status == 'Completed' ? 'done' : ($milestone->status == 'In Progress' ? 'active' : ($milestone->status == 'Delayed' ? 'warning' : 'pending')) }}">
+                                        @if($milestone->status == 'Completed') ✓ @elseif($milestone->status == 'In Progress') ▶ @elseif($milestone->status == 'Delayed') ! @else ◎ @endif
+                                    </div>
                                     <div class="timeline-content">
-                                        <div class="timeline-title">Project Kickoff</div>
-                                        <div class="timeline-desc">Initial planning, team assembly, and requirements
-                                            gathering.</div>
+                                        <div style="display:flex; justify-content:space-between; align-items:flex-start">
+                                            <div class="timeline-title">{{ $milestone->title }}</div>
+                                            <div style="display:flex; gap:8px">
+                                                <button class="btn-icon" onclick="openModal({{ json_encode($milestone) }})" title="Edit">✎</button>
+                                                <form action="{{ route('timeline.destroy', $milestone->id) }}" method="POST" onsubmit="return confirm('Delete this milestone?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-icon" title="Delete">×</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-desc">{{ $milestone->description }}</div>
                                         <div class="timeline-meta">
-                                            <span class="badge badge-success">Completed</span>
-                                            <span class="timeline-date">Jan 5, 2025</span>
+                                            @php
+                                                $badgeClass = 'badge-gray';
+                                                if($milestone->status == 'Completed') $badgeClass = 'badge-success';
+                                                elseif($milestone->status == 'In Progress') $badgeClass = 'badge-primary';
+                                                elseif($milestone->status == 'Delayed') $badgeClass = 'badge-warning';
+                                            @endphp
+                                            <span class="badge {{ $badgeClass }}">{{ $milestone->status }}</span>
+                                            <span class="timeline-date">{{ \Carbon\Carbon::parse($milestone->due_date)->format('M d, Y') }}</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Database Architecture</div>
-                                        <div class="timeline-desc">Schema design, entity relationships, and migration
-                                            scripts.</div>
-                                        <div class="timeline-meta">
-                                            <span class="badge badge-success">Completed</span>
-                                            <span class="timeline-date">Jan 22, 2025</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Backend API Development</div>
-                                        <div class="timeline-desc">RESTful API endpoints, authentication, and business
-                                            logic.</div>
-                                        <div class="timeline-meta">
-                                            <span class="badge badge-success">Completed</span>
-                                            <span class="timeline-date">Feb 14, 2025</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot active">▶</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Frontend UI</div>
-                                        <div class="timeline-desc">React dashboard, data tables, and reporting views.
-                                            Currently in final QA.</div>
-                                        <div class="timeline-meta">
-                                            <span class="badge badge-primary">In Progress</span>
-                                            <span class="timeline-date">Mar 20, 2025</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot pending">◎</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Production Release</div>
-                                        <div class="timeline-desc">Final deployment and client handover.</div>
-                                        <div class="timeline-meta">
-                                            <span class="badge badge-gray">Upcoming</span>
-                                            <span class="timeline-date">Mar 30, 2025</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
-                    <!-- MOBILE APP Timeline -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">MOBILE_APP</div>
-                                <div class="card-subtitle">iOS/Android Cross-platform · Due Apr 15</div>
-                            </div>
-                            <span class="badge badge-success">78% Complete</span>
-                        </div>
-                        <div class="card-body">
-                            <div style="margin-bottom:12px">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                                    <span style="font-size:12px;color:var(--text-muted)">Overall Progress</span>
-                                    <span style="font-size:12px;font-weight:700;color:var(--success)">78%</span>
-                                </div>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar-fill green" style="width:78%"></div>
-                                </div>
-                            </div>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Design & Prototyping</div>
-                                        <div class="timeline-desc">Figma wireframes, UX flows, and UI component
-                                            library.</div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-success">Completed</span><span
-                                                class="timeline-date">Jan 10, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Core Feature Phase</div>
-                                        <div class="timeline-desc">Authentication, dashboard, and core user flows.
-                                        </div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-success">Completed</span><span
-                                                class="timeline-date">Feb 5, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot active">▶</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Push Notifications & Integrations</div>
-                                        <div class="timeline-desc">FCM integration, third-party APIs, and deep linking.
-                                        </div>
-                                        <div class="timeline-meta"><span class="badge badge-primary">In
-                                                Progress</span><span class="timeline-date">Mar 25, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot pending">◎</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">App Store Submission</div>
-                                        <div class="timeline-desc">App Store & Google Play submission and review.</div>
-                                        <div class="timeline-meta"><span class="badge badge-gray">Upcoming</span><span
-                                                class="timeline-date">Apr 10, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot pending">◎</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Public Launch</div>
-                                        <div class="timeline-desc">Marketing launch, press release, and user
-                                            onboarding.</div>
-                                        <div class="timeline-meta"><span class="badge badge-gray">Upcoming</span><span
-                                                class="timeline-date">Apr 15, 2025</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    @if(count($timelines) == 0)
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px; color: var(--text-muted);">
+                         <div style="font-size: 48px; margin-bottom: 20px;">📅</div>
+                         <h3>No milestones yet</h3>
+                         <p>Click "+ Add Milestone" to start tracking your project progress.</p>
                     </div>
+                    @endif
+                </div>
 
-                    <!-- SITE1 Timeline -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">SITE1</div>
-                                <div class="card-subtitle">Corporate Website Redesign · Due Jun 1 · ⚠ Behind schedule
+                <!-- Milestone Modal -->
+                <div id="timelineModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
+                    <div class="modal-content" style="background:var(--card-bg); padding:24px; border-radius:12px; width:450px; box-shadow:0 10px 25px rgba(0,0,0,0.2); border: 1px solid var(--card-border);">
+                        <h2 id="modalTitle" style="margin-bottom:16px; color:var(--text-primary)">Add Milestone</h2>
+                        <form id="timelineForm" method="POST" action="{{ route('timeline.store') }}">
+                            @csrf
+                            <div id="methodField"></div>
+                            <div class="form-group" style="margin-bottom:12px">
+                                <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Project Name</label>
+                                <select name="project_name" id="project_name" required class="form-input">
+                                    <option value="">Select Project</option>
+                                    @foreach($projects as $project)
+                                    <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:12px">
+                                <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Milestone Title</label>
+                                <input type="text" name="title" id="title" required class="form-input" placeholder="e.g. Frontend UI">
+                            </div>
+                            <div class="form-group" style="margin-bottom:12px">
+                                <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Description</label>
+                                <textarea name="description" id="description" required class="form-input" style="height:80px" placeholder="Describe the work involved..."></textarea>
+                            </div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:20px">
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Due Date</label>
+                                    <input type="date" name="due_date" id="due_date" required class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Status</label>
+                                    <select name="status" id="status" required class="form-input">
+                                        <option value="Upcoming">Upcoming</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Delayed">Delayed</option>
+                                    </select>
                                 </div>
                             </div>
-                            <span class="badge badge-danger">32% — Overdue</span>
-                        </div>
-                        <div class="card-body">
-                            <div style="margin-bottom:12px">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                                    <span style="font-size:12px;color:var(--text-muted)">Overall Progress</span>
-                                    <span style="font-size:12px;font-weight:700;color:var(--danger)">32%</span>
-                                </div>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar-fill red" style="width:32%"></div>
-                                </div>
+                            <div style="display:flex; justify-content:flex-end; gap:8px">
+                                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                                <button type="submit" class="btn btn-primary" id="saveBtn">Save Milestone</button>
                             </div>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Discovery & Scope</div>
-                                        <div class="timeline-desc">Requirements, competitor analysis, and brand
-                                            guidelines.</div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-success">Completed</span><span
-                                                class="timeline-date">Feb 1, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot warning">!</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Design System</div>
-                                        <div class="timeline-desc">Partially complete. Client feedback cycles caused
-                                            delays.</div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-warning">Delayed</span><span
-                                                class="timeline-date">Mar 1, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot active">▶</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Page Development</div>
-                                        <div class="timeline-desc">Home, About, Services pages currently in
-                                            development.</div>
-                                        <div class="timeline-meta"><span class="badge badge-primary">In
-                                                Progress</span><span class="timeline-date">Apr 15, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot pending">◎</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">CMS Integration & Launch</div>
-                                        <div class="timeline-desc">WordPress CMS, SEO setup, and go-live.</div>
-                                        <div class="timeline-meta"><span class="badge badge-gray">Upcoming</span><span
-                                                class="timeline-date">Jun 1, 2025</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- API_SERVICE Timeline -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div>
-                                <div class="card-title">API_SERVICE</div>
-                                <div class="card-subtitle">REST API Gateway · Due May 1</div>
-                            </div>
-                            <span class="badge badge-info">55% In Review</span>
-                        </div>
-                        <div class="card-body">
-                            <div style="margin-bottom:12px">
-                                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-                                    <span style="font-size:12px;color:var(--text-muted)">Overall Progress</span>
-                                    <span style="font-size:12px;font-weight:700;color:var(--warning)">55%</span>
-                                </div>
-                                <div class="progress-bar-wrap">
-                                    <div class="progress-bar-fill orange" style="width:55%"></div>
-                                </div>
-                            </div>
-                            <div class="timeline">
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Architecture Planning</div>
-                                        <div class="timeline-desc">Microservices design, OpenAPI spec, and tech stack
-                                            selection.</div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-success">Completed</span><span
-                                                class="timeline-date">Jan 20, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot done">✓</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Core Endpoints</div>
-                                        <div class="timeline-desc">Auth, Users, and Product endpoints with full test
-                                            coverage.</div>
-                                        <div class="timeline-meta"><span
-                                                class="badge badge-success">Completed</span><span
-                                                class="timeline-date">Feb 28, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot active">▶</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Rate Limiting & Security</div>
-                                        <div class="timeline-desc">JWT refresh, rate limiting, and penetration testing.
-                                        </div>
-                                        <div class="timeline-meta"><span class="badge badge-primary">In
-                                                Progress</span><span class="timeline-date">Apr 1, 2025</span></div>
-                                    </div>
-                                </div>
-                                <div class="timeline-item">
-                                    <div class="timeline-dot pending">◎</div>
-                                    <div class="timeline-content">
-                                        <div class="timeline-title">Documentation & Deploy</div>
-                                        <div class="timeline-desc">API docs, versioning, and cloud deployment.</div>
-                                        <div class="timeline-meta"><span class="badge badge-gray">Upcoming</span><span
-                                                class="timeline-date">May 1, 2025</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </main>
@@ -333,6 +160,53 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/sidebar.js') }}"></script>
     <script src="{{ asset('assets/js/notifications.js') }}"></script>
+    <script>
+        const modal = document.getElementById('timelineModal');
+        const form = document.getElementById('timelineForm');
+        const title = document.getElementById('modalTitle');
+        const methodField = document.getElementById('methodField');
+
+        function openModal(milestone = null) {
+            modal.style.display = 'flex';
+            if (milestone) {
+                title.innerText = 'Edit Milestone';
+                form.action = `/timeline/${milestone.id}`;
+                methodField.innerHTML = `@method('PUT')`;
+                
+                document.getElementById('project_name').value = milestone.project_name;
+                document.getElementById('title').value = milestone.title;
+                document.getElementById('description').value = milestone.description;
+                document.getElementById('due_date').value = milestone.due_date;
+                document.getElementById('status').value = milestone.status;
+            } else {
+                title.innerText = 'Add Milestone';
+                form.action = "{{ route('timeline.store') }}";
+                methodField.innerHTML = '';
+                form.reset();
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function filterProjects(projectName) {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                if (projectName === 'all' || card.dataset.project === projectName) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 
 </html>

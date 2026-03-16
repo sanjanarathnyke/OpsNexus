@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\DevelopersController;
+use App\Http\Controllers\TimelineController;
 
 Route::get('/', function () {
     return view('index');
@@ -12,9 +13,10 @@ Route::get('/dashboard', function () {
     return view('index');
 })->name('dashboard');
 
-Route::get('/timeline', function () {
-    return view('timeline');
-})->name('timeline');
+Route::get('/timeline', [TimelineController::class, 'index'])->name('timeline');
+Route::post('/timeline', [TimelineController::class, 'store'])->name('timeline.store');
+Route::put('/timeline/{timeline}', [TimelineController::class, 'update'])->name('timeline.update');
+Route::delete('/timeline/{timeline}', [TimelineController::class, 'destroy'])->name('timeline.destroy');
 
 Route::get('/versioncontrol', function () {
     return view('versioncontrol');
