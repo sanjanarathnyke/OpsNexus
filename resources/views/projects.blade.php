@@ -27,18 +27,15 @@
                         <p>Manage and track all your development projects.</p>
                     </div>
                     <div style="display:flex;gap:8px">
-                        <button class="btn btn-secondary" onclick="showToast('info','Filter options')">⊟ Filter</button>
-                        <button class="btn btn-primary" onclick="showToast('success','Add project dialog')">+ Add
-                            Project</button>
+                        <button class="btn btn-primary" onclick="openModal()">+ Add Project</button>
                     </div>
                 </div>
 
-                <!-- Filter Tabs -->
                 <div class="filter-tabs">
-                    <button class="filter-tab active" onclick="setTab(this,'all')">All Projects (12)</button>
-                    <button class="filter-tab" onclick="setTab(this,'active')">Active (8)</button>
-                    <button class="filter-tab" onclick="setTab(this,'review')">In Review (3)</button>
-                    <button class="filter-tab" onclick="setTab(this,'completed')">Completed (1)</button>
+                    <button class="filter-tab active" onclick="setTab(this,'all')">All Projects ({{ count($projects) }})</button>
+                    <button class="filter-tab" onclick="setTab(this,'active')">Active ({{ $projects->where('status', 'Active')->count() }})</button>
+                    <button class="filter-tab" onclick="setTab(this,'review')">In Review ({{ $projects->where('status', 'Review')->count() }})</button>
+                    <button class="filter-tab" onclick="setTab(this,'completed')">Completed ({{ $projects->where('status', 'Completed')->count() }})</button>
                 </div>
 
                 <!-- Stats Row -->
@@ -48,25 +45,25 @@
                         <div class="stat-header"><span class="stat-label">Total</span>
                             <div class="stat-icon blue">◫</div>
                         </div>
-                        <div class="stat-value">12</div>
+                        <div class="stat-value">{{ count($projects) }}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header"><span class="stat-label">Active</span>
                             <div class="stat-icon green">▶</div>
                         </div>
-                        <div class="stat-value">8</div>
+                        <div class="stat-value">{{ $projects->where('status', 'Active')->count() }}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header"><span class="stat-label">Overdue</span>
                             <div class="stat-icon red">!</div>
                         </div>
-                        <div class="stat-value">2</div>
+                        <div class="stat-value">{{ $projects->where('status', 'Overdue')->count() }}</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-header"><span class="stat-label">Completed</span>
                             <div class="stat-icon purple">✓</div>
                         </div>
-                        <div class="stat-value">1</div>
+                        <div class="stat-value">{{ $projects->where('status', 'Completed')->count() }}</div>
                     </div>
                 </div>
 
@@ -84,199 +81,122 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($projects as $project)
                             <tr>
                                 <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">ERP_SYSTEM</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">Enterprise Resource Planning
-                                    </div>
+                                    <div style="font-weight:700;color:var(--text-primary)">{{ $project->project_name }}</div>
+                                    <div style="font-size:11px;color:var(--text-muted)">{{ $project->description }}</div>
                                 </td>
-                                <td><a href="#" class="repo-link">⎇ github/erp-system</a></td>
+                                <td><a href="{{ $project->repo_url }}" class="repo-link" target="_blank">⎇ {{ str_replace(['https://github.com/', 'http://github.com/'], '', $project->repo_url) }}</a></td>
                                 <td>
                                     <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#4f8ef7">JD</div>
-                                        <div class="avatar-sm" style="background:#8b5cf6">SA</div>
-                                        <div class="avatar-sm" style="background:#22c55e">MR</div>
-                                        <div class="dev-count">+2</div>
+                                        <div class="avatar-sm" style="background:#4f8ef7">??</div>
                                     </div>
                                 </td>
-                                <td><span class="badge badge-success">● Active</span></td>
+                                <td>
+                                    @php
+                                        $statusClass = 'badge-success';
+                                        if($project->status == 'Overdue') $statusClass = 'badge-danger';
+                                        if($project->status == 'Review') $statusClass = 'badge-info';
+                                        if($project->status == 'Completed') $statusClass = 'badge-gray';
+                                    @endphp
+                                    <span class="badge {{ $statusClass }}">
+                                        @if($project->status == 'Active') ● @elseif($project->status == 'Review') ⏳ @elseif($project->status == 'Overdue') ⚠ @else ◎ @endif
+                                        {{ $project->status }}
+                                    </span>
+                                </td>
                                 <td>
                                     <div style="display:flex;align-items:center;gap:8px">
                                         <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill" style="width:92%"></div>
+                                            @php
+                                                $progressColor = '';
+                                                if($project->progress > 80) $progressColor = '';
+                                                elseif($project->progress > 50) $progressColor = 'orange';
+                                                elseif($project->progress > 30) $progressColor = 'purple';
+                                                else $progressColor = 'red';
+                                            @endphp
+                                            <div class="progress-bar-fill {{ $progressColor }}" style="width:{{ $project->progress }}%"></div>
                                         </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--accent)">92%</span>
+                                        <span style="font-size:12px;font-weight:700;color:var(--accent)">{{ $project->progress }}%</span>
                                     </div>
                                 </td>
-                                <td><span class="badge badge-success">Paid</span></td>
+                                <td>
+                                    <span class="badge {{ $project->payments == 'Paid' ? 'badge-success' : ($project->payments == 'Pending' ? 'badge-warning' : 'badge-danger') }}">
+                                        {{ $project->payments }}
+                                    </span>
+                                </td>
                                 <td>
                                     <div style="display:flex;gap:6px">
                                         <button class="btn btn-secondary btn-sm"
-                                            onclick="showToast('info','Edit ERP_SYSTEM')">Edit</button>
-                                        <button class="btn btn-primary btn-sm"
-                                            onclick="showToast('info','View ERP_SYSTEM details')">View</button>
+                                            onclick="openModal({{ json_encode($project) }})">Edit</button>
+                                        <form action="{{ route('projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
+                            @if(count($projects) == 0)
                             <tr>
-                                <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">MOBILE_APP</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">iOS/Android Cross-platform
-                                    </div>
-                                </td>
-                                <td><a href="#" class="repo-link">⎇ github/mobile-app</a></td>
-                                <td>
-                                    <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#f59e0b">DK</div>
-                                        <div class="avatar-sm" style="background:#ef4444">AL</div>
-                                        <div class="dev-count">+1</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">● Active</span></td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px">
-                                        <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill green" style="width:78%"></div>
-                                        </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--success)">78%</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <div style="display:flex;gap:6px">
-                                        <button class="btn btn-secondary btn-sm"
-                                            onclick="showToast('info','Edit MOBILE_APP')">Edit</button>
-                                        <button class="btn btn-primary btn-sm"
-                                            onclick="showToast('info','View MOBILE_APP')">View</button>
-                                    </div>
+                                <td colspan="7" style="text-align:center; padding: 40px; color: var(--text-muted)">
+                                    No projects found. Click "+ Add Project" to create one.
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">API_SERVICE</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">REST API Gateway</div>
-                                </td>
-                                <td><a href="#" class="repo-link">⎇ github/api-service</a></td>
-                                <td>
-                                    <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#22c55e">SA</div>
-                                        <div class="avatar-sm" style="background:#4f8ef7">JD</div>
-                                        <div class="avatar-sm" style="background:#8b5cf6">RN</div>
-                                        <div class="dev-count">+1</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-info">⏳ Review</span></td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px">
-                                        <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill orange" style="width:55%"></div>
-                                        </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--warning)">55%</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-warning">Pending</span></td>
-                                <td>
-                                    <div style="display:flex;gap:6px">
-                                        <button class="btn btn-secondary btn-sm">Edit</button>
-                                        <button class="btn btn-primary btn-sm">View</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">SITE1</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">Corporate Website Redesign
-                                    </div>
-                                </td>
-                                <td><a href="#" class="repo-link">⎇ github/site1</a></td>
-                                <td>
-                                    <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#ef4444">AL</div>
-                                        <div class="avatar-sm" style="background:#4f8ef7">JD</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-danger">⚠ Overdue</span></td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px">
-                                        <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill red" style="width:32%"></div>
-                                        </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--danger)">32%</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-danger">Overdue</span></td>
-                                <td>
-                                    <div style="display:flex;gap:6px">
-                                        <button class="btn btn-secondary btn-sm">Edit</button>
-                                        <button class="btn btn-primary btn-sm">View</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">CRM_APP</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">Customer Relationship Manager
-                                    </div>
-                                </td>
-                                <td><a href="#" class="repo-link">⎇ github/crm-app</a></td>
-                                <td>
-                                    <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#8b5cf6">MR</div>
-                                        <div class="avatar-sm" style="background:#22c55e">SA</div>
-                                        <div class="avatar-sm" style="background:#f59e0b">DK</div>
-                                        <div class="dev-count">+3</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">● Active</span></td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px">
-                                        <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill purple" style="width:67%"></div>
-                                        </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--purple)">67%</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Paid</span></td>
-                                <td>
-                                    <div style="display:flex;gap:6px">
-                                        <button class="btn btn-secondary btn-sm">Edit</button>
-                                        <button class="btn btn-primary btn-sm">View</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div style="font-weight:700;color:var(--text-primary)">DASHBOARD</div>
-                                    <div style="font-size:11px;color:var(--text-muted)">Analytics Dashboard</div>
-                                </td>
-                                <td><a href="#" class="repo-link">⎇ github/dashboard</a></td>
-                                <td>
-                                    <div class="dev-avatars">
-                                        <div class="avatar-sm" style="background:#06b6d4">RN</div>
-                                        <div class="avatar-sm" style="background:#ef4444">AL</div>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-gray">◎ Completed</span></td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px">
-                                        <div class="progress-bar-wrap" style="width:100px">
-                                            <div class="progress-bar-fill" style="width:100%"></div>
-                                        </div>
-                                        <span style="font-size:12px;font-weight:700;color:var(--accent)">100%</span>
-                                    </div>
-                                </td>
-                                <td><span class="badge badge-success">Paid</span></td>
-                                <td>
-                                    <div style="display:flex;gap:6px">
-                                        <button class="btn btn-secondary btn-sm">Edit</button>
-                                        <button class="btn btn-primary btn-sm">View</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
             </main>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; backdrop-filter: blur(4px);">
+        <div class="modal-content" style="background:var(--card-bg); padding:24px; border-radius:12px; width:400px; box-shadow:0 10px 25px rgba(0,0,0,0.2); border: 1px solid var(--card-border);">
+            <h2 id="modalTitle" style="margin-bottom:16px; color:var(--text-primary)">Add Project</h2>
+            <form id="projectForm" method="POST" action="{{ route('projects.store') }}">
+                @csrf
+                <div id="methodField"></div>
+                <div class="form-group" style="margin-bottom:12px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Project Name</label>
+                    <input type="text" name="project_name" id="project_name" required class="form-input">
+                </div>
+                <div class="form-group" style="margin-bottom:12px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Description</label>
+                    <input type="text" name="description" id="description" required class="form-input">
+                </div>
+                <div class="form-group" style="margin-bottom:12px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Repo URL</label>
+                    <input type="url" name="repo_url" id="repo_url" required class="form-input">
+                </div>
+                <div class="form-group" style="margin-bottom:12px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Status</label>
+                    <select name="status" id="status" required class="form-input">
+                        <option value="Active">Active</option>
+                        <option value="Review">Review</option>
+                        <option value="Overdue">Overdue</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom:12px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Progress (%)</label>
+                    <input type="number" name="progress" id="progress" min="0" max="100" required class="form-input">
+                </div>
+                <div class="form-group" style="margin-bottom:16px">
+                    <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Payment</label>
+                    <select name="payments" id="payments" required class="form-input">
+                        <option value="Paid">Paid</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save Project</button>
+                </div>
+            </form>
         </div>
     </div>
     <script src="{{ asset('assets/js/app.js') }}"></script>
@@ -287,6 +207,42 @@
             document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
             showToast('info', `Showing ${tab} projects`);
+        }
+
+        const modal = document.getElementById('projectModal');
+        const form = document.getElementById('projectForm');
+        const title = document.getElementById('modalTitle');
+        const methodField = document.getElementById('methodField');
+
+        function openModal(project = null) {
+            modal.style.display = 'flex';
+            if (project) {
+                title.innerText = 'Edit Project';
+                form.action = `/projects/${project.id}`;
+                methodField.innerHTML = `@method('PUT')`;
+                
+                document.getElementById('project_name').value = project.project_name;
+                document.getElementById('description').value = project.description;
+                document.getElementById('repo_url').value = project.repo_url;
+                document.getElementById('status').value = project.status;
+                document.getElementById('progress').value = project.progress;
+                document.getElementById('payments').value = project.payments;
+            } else {
+                title.innerText = 'Add Project';
+                form.action = "{{ route('projects.store') }}";
+                methodField.innerHTML = '';
+                form.reset();
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
