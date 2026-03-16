@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\DevelopersController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('/index', function () {
+Route::get('/dashboard', function () {
     return view('index');
-})->name('index');
+})->name('dashboard');
 
 Route::get('/timeline', function () {
     return view('timeline');
@@ -22,9 +24,10 @@ Route::get('/payments', function () {
     return view('payments');
 })->name('payments');
 
-Route::get('/developer', function () {
-    return view('developer');
-})->name('developer');
+Route::get('/developer', [DevelopersController::class, 'index'])->name('developer');
+Route::post('/developer', [DevelopersController::class, 'store'])->name('developer.store');
+Route::put('/developer/{developer}', [DevelopersController::class, 'update'])->name('developer.update');
+Route::delete('/developer/{developer}', [DevelopersController::class, 'destroy'])->name('developer.destroy');
 
 Route::get('/subscription', function () {
     return view('subscription');
@@ -38,6 +41,7 @@ Route::get('/settings', function () {
     return view('settings');
 })->name('settings');
 
-Route::get('/projects', function () {
-    return view('projects');
-})->name('projects');
+Route::get('/projects', [ProjectsController::class, 'index'])->name('projects');
+Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
+Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
+Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');

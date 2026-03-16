@@ -9,7 +9,7 @@
     <nav class="sidebar-nav">
         <div class="sidebar-section-title">Main</div>
 
-        <div class="nav-item {{ Route::is('index') ? 'active' : '' }}" data-page="{{ route('index') }}">
+        <div class="nav-item {{ Route::is('dashboard') ? 'active' : '' }}" data-page="{{ route('dashboard') }}">
             <div class="nav-icon">
                 {{-- Dashboard / Grid --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -63,7 +63,8 @@
 
         <div class="sidebar-section-title">Development</div>
 
-        <div class="nav-item {{ Route::is('versioncontrol') ? 'active' : '' }}" data-page="{{ route('versioncontrol') }}">
+        <div class="nav-item {{ Route::is('versioncontrol') ? 'active' : '' }}"
+            data-page="{{ route('versioncontrol') }}">
             <div class="nav-icon">
                 {{-- Version Control / Git Branch --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -95,7 +96,8 @@
 
         <div class="sidebar-section-title">Account</div>
 
-        <div class="nav-item {{ Route::is('subscription') ? 'active' : '' }}" data-page="{{ route('subscription') }}">
+        <div class="nav-item {{ Route::is('subscription') ? 'active' : '' }}"
+            data-page="{{ route('subscription') }}">
             <div class="nav-icon">
                 {{-- Subscriptions / Star --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -108,7 +110,8 @@
             <span class="nav-label">Subscriptions</span>
         </div>
 
-        <div class="nav-item {{ Route::is('notification') ? 'active' : '' }}" data-page="{{ route('notification') }}">
+        <div class="nav-item {{ Route::is('notification') ? 'active' : '' }}"
+            data-page="{{ route('notification') }}">
             <div class="nav-icon">
                 {{-- Notifications / Bell --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
