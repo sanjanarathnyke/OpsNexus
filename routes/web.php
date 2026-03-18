@@ -47,3 +47,7 @@ Route::get('/projects', [ProjectsController::class, 'index'])->name('projects');
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
 Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+
+//webhook implementation
+use App\Http\Controllers\GitHubWebhookController;
+Route::post('/api/github/webhook', [GitHubWebhookController::class, 'handle']);
