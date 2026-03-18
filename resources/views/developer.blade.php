@@ -91,8 +91,8 @@
                                 </td>
                                 <td><a href="https://github.com/{{ $developer->github_username }}" target="_blank" class="repo-link">@ {{ $developer->github_username }}</a></td>
                                 <td><span class="badge badge-primary">{{ $developer->role }}</span></td>
-                                <td>
-                                    <div style="font-size:12px">{{ $developer->assign_projects }}</div>
+                                <td style="padding:16px 12px">
+                                    <div style="font-weight:600;color:var(--text-primary)">{{ $developer->pro_name ?? 'N/A' }}</div>
                                 </td>
                                 <td>
                                     <div style="font-weight:700;color:var(--text-primary)">{{ $developer->recent_commits ?? 0 }}</div>
@@ -152,8 +152,13 @@
                                 <input type="text" name="github_username" id="github_username" class="form-input">
                             </div>
                             <div class="form-group" style="margin-bottom:12px">
-                                <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Projects (Comma separated)</label>
-                                <input type="text" name="assign_projects" id="assign_projects" class="form-input">
+                                <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Assigned Project</label>
+                                <select name="pro_name" id="pro_name" class="form-input">
+                                    <option value="">Select Project</option>
+                                    @foreach($projects as $project)
+                                        <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group" style="margin-bottom:16px">
                                 <label style="display:block; margin-bottom:4px; color:var(--text-muted); font-size:12px">Status</label>
@@ -199,7 +204,7 @@
                 document.getElementById('email').value = developer.email;
                 document.getElementById('role').value = developer.role;
                 document.getElementById('github_username').value = developer.github_username;
-                document.getElementById('assign_projects').value = developer.assign_projects;
+                document.getElementById('pro_name').value = developer.pro_name || '';
                 document.getElementById('status').value = developer.status;
             } else {
                 title.innerText = 'Invite Developer';
