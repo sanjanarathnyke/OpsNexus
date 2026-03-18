@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Developers;
+use App\Models\Projects;
 use Illuminate\Http\Request;
 
 class DevelopersController extends Controller
@@ -13,7 +14,8 @@ class DevelopersController extends Controller
     public function index()
     {
         $developers = Developers::all();
-        return view('developer', compact('developers'));
+        $projects = Projects::all();
+        return view('developer', compact('developers', 'projects'));
     }
 
     /**
@@ -34,7 +36,6 @@ class DevelopersController extends Controller
             'email' => 'required|email|unique:developers,email',
             'pro_name' => 'nullable|string|max:255',
             'role' => 'required|string|max:255',
-            'assign_projects' => 'nullable|string',
             'github_username' => 'nullable|string|max:255',
             'status' => 'required|string',
         ]);
@@ -69,7 +70,6 @@ class DevelopersController extends Controller
             'email' => 'required|email|unique:developers,email,' . $developer->id,
             'pro_name' => 'nullable|string|max:255',
             'role' => 'required|string|max:255',
-            'assign_projects' => 'nullable|string',
             'github_username' => 'nullable|string|max:255',
             'status' => 'required|string',
         ]);

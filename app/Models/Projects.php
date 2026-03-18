@@ -14,4 +14,9 @@ class Projects extends Model
         'progress',
         'payments',
     ];
+
+    public function developers()
+    {
+        return $this->hasMany(Developers::class, 'pro_name', 'project_name');
+    }
 }
