@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\DevelopersController;
 use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\GitHubWebhookController;
 
 Route::get('/', function () {
     return view('index');
@@ -48,6 +49,5 @@ Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.s
 Route::put('/projects/{project}', [ProjectsController::class, 'update'])->name('projects.update');
 Route::delete('/projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
 
-//webhook implementation
-use App\Http\Controllers\GitHubWebhookController;
+// webhook implementation
 Route::post('/api/github/webhook', [GitHubWebhookController::class, 'handle']);

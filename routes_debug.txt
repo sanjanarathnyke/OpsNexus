@@ -1,0 +1,27 @@
+
+  GET|HEAD  / ............ 
+  POST      api/github/webhook GitHubWebhookController@ΓÇª
+  GET|HEAD  dashboard dasΓÇª
+  GET|HEAD  developer devΓÇª
+  POST      developer devΓÇª
+  PUT       developer/{developer} developer.update ΓÇ║ DevelopersControllΓÇª
+  DELETE    developer/{developer} developer.destroy ΓÇ║ DevelopersControlleΓÇª
+  GET|HEAD  notifications notificatioΓÇª
+  GET|HEAD  payments paymΓÇª
+  GET|HEAD  projects projΓÇª
+  POST      projects projΓÇª
+  PUT       projects/{project} projects.update ΓÇ║ ProjectsController@ΓÇª
+  DELETE    projects/{project} projects.destroy ΓÇ║ ProjectsController@dΓÇª
+  GET|HEAD  settings settΓÇª
+  GET|HEAD  storage/{path} storage.locΓÇª
+  PUT       storage/{path} storage.local.uploΓÇª
+  GET|HEAD  subscription ΓÇª
+  GET|HEAD  timeline timeΓÇª
+  POST      timeline timeΓÇª
+  PUT       timeline/{timeline} timeline.update ΓÇ║ TimelineControllerΓÇª
+  DELETE    timeline/{timeline} timeline.destroy ΓÇ║ TimelineController@ΓÇª
+  GET|HEAD  up ........... 
+  GET|HEAD  versioncontrol versioncontrΓÇª
+
+       Showing [23] routes
+
