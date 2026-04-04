@@ -5,272 +5,295 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings — OpsNexus</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}" />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div class="app-layout">
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="flex h-screen overflow-hidden">
         <!-- SIDEBAR -->
         @include('layouts.side-navbar')
 
-        <div class="main-area">
+        <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             <!-- HEADER -->
             @include('layouts.header')
 
-            <main class="content">
-                <div class="page-header">
+            <main class="w-full grow p-6 space-y-6">
+                <!-- Page Header -->
+                <div class="sm:flex sm:items-center sm:justify-between mb-8">
                     <div>
-                        <h1>Settings</h1>
-                        <p>Manage your account, workspace, and integrations.</p>
+                        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Settings</h1>
+                        <p class="mt-1 text-sm text-gray-500">Manage your account, workspace, and integrations.</p>
                     </div>
-                    <button class="btn btn-primary" onclick="saveSettings()">Save Changes</button>
+                    <div class="mt-4 sm:mt-0">
+                        <button onclick="saveSettings()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30">
+                            Save Changes
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Settings Tabs -->
-                <div class="filter-tabs" style="margin-bottom:22px">
-                    <button class="filter-tab active" onclick="switchTab(this,'profile')">Profile</button>
-                    <button class="filter-tab" onclick="switchTab(this,'workspace')">Workspace</button>
-                    <button class="filter-tab" onclick="switchTab(this,'notifications-tab')">Notifications</button>
-                    <button class="filter-tab" onclick="switchTab(this,'integrations')">Integrations</button>
-                    <button class="filter-tab" onclick="switchTab(this,'security')">Security</button>
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                        <button class="filter-tab active border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'profile')">Profile</button>
+                        <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'workspace')">Workspace</button>
+                        <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'notifications-tab')">Notifications</button>
+                        <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'integrations')">Integrations</button>
+                        <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'security')">Security</button>
+                    </nav>
                 </div>
 
                 <!-- PROFILE TAB -->
                 <div id="tab-profile">
-                    <!-- Profile Settings -->
-                    <div class="settings-section">
-                        <div class="section-header">
-                            <h3>Profile Information</h3>
-                            <p>Update your personal details and public profile.</p>
-                        </div>
-                        <div class="section-body">
-                            <div style="display:flex;align-items:center;gap:18px;margin-bottom:22px">
-                                <div class="avatar"
-                                    style="width:64px;height:64px;font-size:22px;background:linear-gradient(135deg,#4f8ef7,#8b5cf6)">
-                                    JD</div>
+                    <div class="max-w-4xl space-y-6">
+                        <!-- Profile Settings -->
+                        <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Profile Information</h3>
+                                <p class="mt-1 text-sm text-gray-500">Update your personal details and public profile.</p>
+                            </div>
+                            <div class="p-6 space-y-6">
+                                <div class="flex items-center space-x-6">
+                                    <div class="h-16 w-16 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-2xl shadow-inner">
+                                        JD
+                                    </div>
+                                    <div>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('info','Upload avatar dialog')">
+                                            Change Avatar
+                                        </button>
+                                        <p class="mt-2 text-xs text-gray-500">JPG, PNG or GIF · Max 2MB</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">First Name</label>
+                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="John" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Last Name</label>
+                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="Doe" />
+                                    </div>
+                                </div>
                                 <div>
-                                    <button class="btn btn-secondary btn-sm"
-                                        onclick="showToast('info','Upload avatar dialog')">Change Avatar</button>
-                                    <div style="font-size:12px;color:var(--text-muted);margin-top:5px">JPG, PNG or GIF
-                                        · Max 2MB</div>
+                                    <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                                    <input type="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="john@devhub.io" />
                                 </div>
-                            </div>
-                            <div class="form-input-group">
-                                <div class="form-group">
-                                    <label class="form-label">First Name</label>
-                                    <input type="text" class="form-input" value="John" />
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">GitHub Username</label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">github.com/</span>
+                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="johndoe" placeholder="username" />
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Last Name</label>
-                                    <input type="text" class="form-input" value="Doe" />
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Role / Title</label>
+                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="Lead Developer & Admin" />
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-input" value="john@devhub.io" />
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">GitHub Username</label>
-                                <input type="text" class="form-input" value="@johndoe" placeholder="@username" />
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Role / Title</label>
-                                <input type="text" class="form-input" value="Lead Developer & Admin" />
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Bio</label>
-                                <textarea class="form-input" rows="3" style="resize:vertical">Senior full-stack developer with 8+ years of experience building SaaS platforms and enterprise applications.</textarea>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Bio</label>
+                                    <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm resize-y" rows="3">Senior full-stack developer with 8+ years of experience building SaaS platforms and enterprise applications.</textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Danger Zone -->
-                    <div class="settings-section" style="border-color:#fecaca">
-                        <div class="section-header" style="background:#fef2f2;border-radius:10px 10px 0 0">
-                            <h3 style="color:var(--danger)">⚠ Danger Zone</h3>
-                            <p>These actions are irreversible. Please be certain.</p>
-                        </div>
-                        <div class="section-body"
-                            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-                            <div>
-                                <div style="font-weight:600;font-size:13px">Delete Account</div>
-                                <div style="font-size:12px;color:var(--text-muted)">Permanently delete your account and
-                                    all associated data.</div>
+
+
+                        <!-- Danger Zone -->
+                        <div class="bg-white shadow-sm rounded-xl border border-red-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-red-200 bg-red-50">
+                                <h3 class="text-lg leading-6 font-medium text-red-800 flex items-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    Danger Zone
+                                </h3>
+                                <p class="mt-1 text-sm text-red-600">These actions are irreversible. Please be certain.</p>
                             </div>
-                            <button class="btn btn-danger"
-                                onclick="showToast('warning','Confirmation required before deletion')">Delete My
-                                Account</button>
+                            <div class="p-6 bg-white">
+                                <div class="flex items-center justify-between flex-wrap gap-4">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Delete Account</h4>
+                                        <p class="text-sm text-gray-500">Permanently delete your account and all associated data.</p>
+                                    </div>
+                                    <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors" onclick="showToast('warning','Confirmation required before deletion')">
+                                        Delete My Account
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- WORKSPACE TAB (hidden) -->
-                <div id="tab-workspace" style="display:none">
-                    <div class="settings-section">
-                        <div class="section-header">
-                            <h3>Workspace Settings</h3>
-                            <p>Configure your workspace name, timezone, and defaults.</p>
-                        </div>
-                        <div class="section-body">
-                            <div class="form-group">
-                                <label class="form-label">Workspace Name</label>
-                                <input type="text" class="form-input" value="DevHub Pro" />
+                <!-- WORKSPACE TAB -->
+                <div id="tab-workspace" class="hidden">
+                    <div class="max-w-4xl">
+                        <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Workspace Settings</h3>
+                                <p class="mt-1 text-sm text-gray-500">Configure your workspace name, timezone, and defaults.</p>
                             </div>
-                            <div class="form-group">
-                                <label class="form-label">Workspace URL</label>
-                                <input type="text" class="form-input" value="devhubpro"
-                                    placeholder="your-workspace" />
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Timezone</label>
-                                <select class="form-input">
-                                    <option selected>UTC+0 — London</option>
-                                    <option>UTC-5 — New York</option>
-                                    <option>UTC-8 — Los Angeles</option>
-                                    <option>UTC+1 — Paris</option>
-                                    <option>UTC+8 — Singapore</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Default Project Visibility</label>
-                                <select class="form-input">
-                                    <option selected>Private</option>
-                                    <option>Team Only</option>
-                                    <option>Public</option>
-                                </select>
+                            <div class="p-6 space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Workspace Name</label>
+                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="DevHub Pro" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Workspace URL</label>
+                                    <div class="mt-1 flex rounded-md shadow-sm">
+                                        <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">opsnexus.com/</span>
+                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="devhubpro" placeholder="your-workspace" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Timezone</label>
+                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                                        <option selected>UTC+0 — London</option>
+                                        <option>UTC-5 — New York</option>
+                                        <option>UTC-8 — Los Angeles</option>
+                                        <option>UTC+1 — Paris</option>
+                                        <option>UTC+8 — Singapore</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Default Project Visibility</label>
+                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                                        <option selected>Private</option>
+                                        <option>Team Only</option>
+                                        <option>Public</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- NOTIFICATIONS TAB -->
-                <div id="tab-notifications-tab" style="display:none">
-                    <div class="settings-section">
-                        <div class="section-header">
-                            <h3>Notification Preferences</h3>
-                            <p>Control how and when you receive notifications.</p>
-                        </div>
-                        <div class="section-body">
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Push Commits</h4>
-                                    <p>Get notified when a developer pushes commits.</p>
-                                </div>
-                                <label class="toggle-switch"><input type="checkbox" checked /><span
-                                        class="toggle-slider"></span></label>
+                <div id="tab-notifications-tab" class="hidden">
+                    <div class="max-w-4xl">
+                        <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Notification Preferences</h3>
+                                <p class="mt-1 text-sm text-gray-500">Control how and when you receive notifications.</p>
                             </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Pull Request Events</h4>
-                                    <p>Notifications for PR opens, reviews, and merges.</p>
+                            <div class="divide-y divide-gray-200">
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Push Commits</h4>
+                                        <p class="text-sm text-gray-500">Get notified when a developer pushes commits.</p>
+                                    </div>
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" checked /><span
-                                        class="toggle-slider"></span></label>
-                            </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Payment Updates</h4>
-                                    <p>Invoice paid, overdue, or new payment received.</p>
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Pull Request Events</h4>
+                                        <p class="text-sm text-gray-500">Notifications for PR opens, reviews, and merges.</p>
+                                    </div>
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" checked /><span
-                                        class="toggle-slider"></span></label>
-                            </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Milestone Completion</h4>
-                                    <p>When a project milestone is marked complete.</p>
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Payment Updates</h4>
+                                        <p class="text-sm text-gray-500">Invoice paid, overdue, or new payment received.</p>
+                                    </div>
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" /><span
-                                        class="toggle-slider"></span></label>
-                            </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Weekly Digest</h4>
-                                    <p>A weekly summary email of all project activity.</p>
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Milestone Completion</h4>
+                                        <p class="text-sm text-gray-500">When a project milestone is marked complete.</p>
+                                    </div>
+                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" checked /><span
-                                        class="toggle-slider"></span></label>
-                            </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>New Developer Joins</h4>
-                                    <p>When someone accepts a workspace invite.</p>
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">Weekly Digest</h4>
+                                        <p class="text-sm text-gray-500">A weekly summary email of all project activity.</p>
+                                    </div>
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" /><span
-                                        class="toggle-slider"></span></label>
+                                <div class="p-6 flex items-center justify-between">
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900">New Developer Joins</h4>
+                                        <p class="text-sm text-gray-500">When someone accepts a workspace invite.</p>
+                                    </div>
+                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                        <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- INTEGRATIONS TAB -->
-                <div id="tab-integrations" style="display:none">
-                    <div class="settings-section">
-                        <div class="section-header">
-                            <h3>Integrations</h3>
-                            <p>Connect third-party services to DevHub.</p>
-                        </div>
-                        <div class="section-body">
-                            <div class="toggle-row">
-                                <div style="display:flex;align-items:center;gap:12px">
-                                    <div class="stat-icon"
-                                        style="background:#24292e;color:#fff;border-radius:8px;font-size:18px">⎇</div>
-                                    <div class="toggle-row-info">
-                                        <h4>GitHub</h4>
-                                        <p>Sync repositories, commits, and pull requests.</p>
-                                    </div>
-                                </div>
-                                <div style="display:flex;align-items:center;gap:10px">
-                                    <span class="badge badge-success">Connected</span>
-                                    <button class="btn btn-danger btn-sm"
-                                        onclick="showToast('warning','Disconnect GitHub?')">Disconnect</button>
-                                </div>
+                <div id="tab-integrations" class="hidden">
+                    <div class="max-w-4xl">
+                        <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Integrations</h3>
+                                <p class="mt-1 text-sm text-gray-500">Connect third-party services to DevHub.</p>
                             </div>
-                            <div class="toggle-row">
-                                <div style="display:flex;align-items:center;gap:12px">
-                                    <div class="stat-icon"
-                                        style="background:#4A154B;color:#fff;border-radius:8px;font-size:18px">#</div>
-                                    <div class="toggle-row-info">
-                                        <h4>Slack</h4>
-                                        <p>Get notifications in your Slack channels.</p>
+                            <div class="divide-y divide-gray-200">
+                                <div class="p-6 flex items-center justify-between flex-wrap gap-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0 h-12 w-12 rounded-xl bg-[#24292e] flex items-center justify-center text-white text-xl">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">GitHub</h4>
+                                            <p class="text-sm text-gray-500">Sync repositories, commits, and pull requests.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Connected</span>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-xs font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors" onclick="showToast('warning','Disconnect GitHub?')">Disconnect</button>
                                     </div>
                                 </div>
-                                <div style="display:flex;align-items:center;gap:10px">
-                                    <span class="badge badge-gray">Not Connected</span>
-                                    <button class="btn btn-primary btn-sm"
-                                        onclick="showToast('success','Redirecting to Slack OAuth...')">Connect</button>
-                                </div>
-                            </div>
-                            <div class="toggle-row">
-                                <div style="display:flex;align-items:center;gap:12px">
-                                    <div class="stat-icon"
-                                        style="background:#635BFF;color:#fff;border-radius:8px;font-size:18px">$</div>
-                                    <div class="toggle-row-info">
-                                        <h4>Stripe</h4>
-                                        <p>Sync invoices and payment status automatically.</p>
+                                <div class="p-6 flex items-center justify-between flex-wrap gap-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0 h-12 w-12 rounded-xl bg-[#4A154B] flex items-center justify-center text-white text-xl font-bold">#</div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Slack</h4>
+                                            <p class="text-sm text-gray-500">Get notifications in your Slack channels.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Not Connected</span>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Redirecting to Slack OAuth...')">Connect</button>
                                     </div>
                                 </div>
-                                <div style="display:flex;align-items:center;gap:10px">
-                                    <span class="badge badge-success">Connected</span>
-                                    <button class="btn btn-danger btn-sm"
-                                        onclick="showToast('warning','Disconnect Stripe?')">Disconnect</button>
-                                </div>
-                            </div>
-                            <div class="toggle-row">
-                                <div style="display:flex;align-items:center;gap:12px">
-                                    <div class="stat-icon"
-                                        style="background:#0052CC;color:#fff;border-radius:8px;font-size:18px">J</div>
-                                    <div class="toggle-row-info">
-                                        <h4>Jira</h4>
-                                        <p>Sync issues, sprints, and epics with projects.</p>
+                                <div class="p-6 flex items-center justify-between flex-wrap gap-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0 h-12 w-12 rounded-xl bg-[#635BFF] flex items-center justify-center text-white text-xl font-bold">$</div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Stripe</h4>
+                                            <p class="text-sm text-gray-500">Sync invoices and payment status automatically.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Connected</span>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-xs font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors" onclick="showToast('warning','Disconnect Stripe?')">Disconnect</button>
                                     </div>
                                 </div>
-                                <div style="display:flex;align-items:center;gap:10px">
-                                    <span class="badge badge-gray">Not Connected</span>
-                                    <button class="btn btn-primary btn-sm"
-                                        onclick="showToast('success','Redirecting to Jira...')">Connect</button>
+                                <div class="p-6 flex items-center justify-between flex-wrap gap-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0 h-12 w-12 rounded-xl bg-[#0052CC] flex items-center justify-center text-white text-xl font-bold">J</div>
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Jira</h4>
+                                            <p class="text-sm text-gray-500">Sync issues, sprints, and epics with projects.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Not Connected</span>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Redirecting to Jira...')">Connect</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -278,46 +301,54 @@
                 </div>
 
                 <!-- SECURITY TAB -->
-                <div id="tab-security" style="display:none">
-                    <div class="settings-section">
-                        <div class="section-header">
-                            <h3>Security</h3>
-                            <p>Manage your password and two-factor authentication.</p>
-                        </div>
-                        <div class="section-body">
-                            <div class="form-group">
-                                <label class="form-label">Current Password</label>
-                                <input type="password" class="form-input" placeholder="Enter current password" />
+                <div id="tab-security" class="hidden">
+                    <div class="max-w-4xl">
+                        <div class="bg-white shadow-sm rounded-xl border border-gray-200 overflow-hidden">
+                            <div class="px-6 py-5 border-b border-gray-200 bg-gray-50">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Security</h3>
+                                <p class="mt-1 text-sm text-gray-500">Manage your password and two-factor authentication.</p>
                             </div>
-                            <div class="form-input-group">
-                                <div class="form-group">
-                                    <label class="form-label">New Password</label>
-                                    <input type="password" class="form-input" placeholder="Min 8 characters" />
+                            <div class="p-6 space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Current Password</label>
+                                    <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Enter current password" />
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-input" placeholder="Re-enter new password" />
+                                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">New Password</label>
+                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Min 8 characters" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">Confirm New Password</label>
+                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Re-enter new password" />
+                                    </div>
                                 </div>
-                            </div>
-                            <button class="btn btn-primary" style="margin-top:6px"
-                                onclick="showToast('success','Password updated successfully!')">Update
-                                Password</button>
-                            <div style="height:1px;background:var(--card-border);margin:22px 0"></div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Two-Factor Authentication (2FA)</h4>
-                                    <p>Add an extra layer of security to your account.</p>
+                                <div>
+                                    <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Password updated successfully!')">
+                                        Update Password
+                                    </button>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" /><span
-                                        class="toggle-slider"></span></label>
-                            </div>
-                            <div class="toggle-row">
-                                <div class="toggle-row-info">
-                                    <h4>Login Alerts</h4>
-                                    <p>Email me when a new device signs in to my account.</p>
+
+                                <div class="border-t border-gray-200 pt-6 mt-6 space-y-6">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Two-Factor Authentication (2FA)</h4>
+                                            <p class="text-sm text-gray-500">Add an extra layer of security to your account.</p>
+                                        </div>
+                                        <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                            <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-sm font-medium text-gray-900">Login Alerts</h4>
+                                            <p class="text-sm text-gray-500">Email me when a new device signs in to my account.</p>
+                                        </div>
+                                        <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                            <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
+                                        </button>
+                                    </div>
                                 </div>
-                                <label class="toggle-switch"><input type="checkbox" checked /><span
-                                        class="toggle-slider"></span></label>
                             </div>
                         </div>
                     </div>
@@ -331,21 +362,50 @@
     <script src="{{ asset('assets/js/notifications.js') }}"></script>
     <script>
         function switchTab(el, tab) {
-            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+            document.querySelectorAll('.filter-tab').forEach(t => {
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
+                t.classList.add('border-transparent', 'text-gray-500');
+            });
+            el.classList.remove('border-transparent', 'text-gray-500');
+            el.classList.add('active', 'border-orange-500', 'text-orange-600');
+            
             // Hide all tabs
             ['profile', 'workspace', 'notifications-tab', 'integrations', 'security'].forEach(t => {
-                const el = document.getElementById('tab-' + t);
-                if (el) el.style.display = 'none';
+                const element = document.getElementById('tab-' + t);
+                if (element) {
+                    element.classList.add('hidden');
+                    element.classList.remove('block');
+                }
             });
             const target = document.getElementById('tab-' + tab);
-            if (target) target.style.display = 'block';
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
         }
 
         function saveSettings() {
             showToast('success', 'Settings saved successfully!');
         }
+
+        function toggleSwitch(btn) {
+            const isChecked = btn.getAttribute('aria-checked') === 'true';
+            const span = btn.querySelector('span');
+            
+            if (isChecked) {
+                btn.setAttribute('aria-checked', 'false');
+                btn.classList.remove('bg-orange-600');
+                btn.classList.add('bg-gray-200');
+                span.classList.remove('translate-x-5');
+                span.classList.add('translate-x-0');
+            } else {
+                btn.setAttribute('aria-checked', 'true');
+                btn.classList.remove('bg-gray-200');
+                btn.classList.add('bg-orange-600');
+                span.classList.remove('translate-x-0');
+                span.classList.add('translate-x-5');
+            }
+        }
     </script>
 </body>
-
 </html>

@@ -1,0 +1,9 @@
+/ => 200 OK
+/projects => FAIL: Response status code does not indicate success: 404 (Not Found).
+/developer => FAIL: Response status code does not indicate success: 404 (Not Found).
+/timeline => FAIL: Response status code does not indicate success: 404 (Not Found).
+/versioncontrol => FAIL: Response status code does not indicate success: 404 (Not Found).
+/payments => FAIL: Response status code does not indicate success: 404 (Not Found).
+/notifications => FAIL: Response status code does not indicate success: 404 (Not Found).
+/settings => FAIL: Response status code does not indicate success: 404 (Not Found).
+/subscription => FAIL: Response status code does not indicate success: 404 (Not Found).

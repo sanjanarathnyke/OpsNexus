@@ -43,13 +43,23 @@ function renderNotificationFeed() {
   };
 
   feed.innerHTML = NOTIFICATIONS_DATA.map(n => `
-    <div class="notif-item ${n.unread ? 'unread' : ''}" data-id="${n.id}">
-      <div class="notif-avatar" style="background: ${n.color}">${n.avatar}</div>
-      <div class="notif-body">
-        <div class="notif-text">${n.text}</div>
-        <div class="notif-time">${typeIcons[n.type] || '•'} ${n.time}</div>
+    <div class="group relative p-5 hover:bg-gray-50:bg-slate-800/50 transition-colors flex items-start space-x-4 notif-item ${n.unread ? 'bg-orange-50/30' : ''}" data-id="${n.id}">
+      <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold shadow-sm" style="background: ${n.color}">
+        ${n.avatar}
       </div>
-      ${n.unread ? '<div class="notif-unread-dot"></div>' : ''}
+      <div class="flex-1 min-w-0">
+        <p class="text-sm text-gray-800">
+          ${n.text.replace(/<strong>/g, '<span class="font-semibold text-gray-900">').replace(/<\/strong>/g, '</span>').replace(/<span class="repo-name">/g, '<span class="font-semibold text-orange-600">').replace(/<code>/g, '<span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">').replace(/<\/code>/g, '</span>')}
+        </p>
+        <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
+          <span>${typeIcons[n.type] || '•'}</span>
+          <span>&middot;</span>
+          <span class="whitespace-nowrap">${n.time}</span>
+        </div>
+      </div>
+      ${n.unread ? `<div class="flex-shrink-0 mt-3 notif-unread-dot">
+        <span class="h-2.5 w-2.5 rounded-full bg-orange-600 inline-block shadow-sm ring-2 ring-white"></span>
+      </div>` : ''}
     </div>
   `).join('');
 
@@ -59,7 +69,7 @@ function renderNotificationFeed() {
       const notif = NOTIFICATIONS_DATA.find(n => n.id === id);
       if (notif && notif.unread) {
         notif.unread = false;
-        item.classList.remove('unread');
+        item.classList.remove('bg-orange-50/30', '');
         const dot = item.querySelector('.notif-unread-dot');
         if (dot) dot.remove();
       }
@@ -70,7 +80,7 @@ function renderNotificationFeed() {
 function markAllRead() {
   NOTIFICATIONS_DATA.forEach(n => n.unread = false);
   document.querySelectorAll('.notif-item').forEach(item => {
-    item.classList.remove('unread');
+    item.classList.remove('bg-orange-50/30', '');
     const dot = item.querySelector('.notif-unread-dot');
     if (dot) dot.remove();
   });
