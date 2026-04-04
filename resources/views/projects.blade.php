@@ -209,7 +209,7 @@
                                 @if (count($projects) == 0)
                                     <tr>
                                         <td colspan="7" class="px-6 py-12 text-center text-gray-500 text-sm">
-                                            No projects found. Click "Add Project" to create one.
+                                            No projects found. <button type="button" onclick="openModal()" class="text-orange-600 font-medium hover:underline cursor-pointer">Click "Add Project" to create one.</button>
                                         </td>
                                     </tr>
                                 @endif
@@ -223,11 +223,13 @@
 
     <!-- Project Modal -->
     <div id="projectModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-gray-50 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-gray-200">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+            <!-- Background backdrop -->
+            <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+
+            <!-- Modal Panel -->
+            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-slate-200">
+                <div class="bg-white px-6 py-6 sm:p-8">
                     <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Add Project</h3>
                     <form id="projectForm" method="POST" action="{{ route('projects.store') }}">
                         @csrf

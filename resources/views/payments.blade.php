@@ -31,7 +31,7 @@
                             </svg>
                             Export
                         </button>
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30" onclick="showToast('success','New invoice dialog')">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30" onclick="openInvoiceModal()">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>
@@ -192,117 +192,51 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach($invoices as $invoice)
                                 <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-2025-001</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">ERP_SYSTEM</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-{{ $invoice->id }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $invoice->project_name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">Acme Corp</div>
-                                        <div class="text-sm text-gray-500">acme@corp.com</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ $invoice->client_name }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$24,500</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">${{ number_format($invoice->amount, 2) }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Mar 01, 2025</div>
-                                        <div class="text-xs text-gray-500">Due: Mar 15</div>
+                                        <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($invoice->due_date)->format('M d, Y') }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($invoice->status == 'Paid')
                                         <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             ✓ Paid
                                         </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('info','Download invoice')" class="text-orange-600 hover:text-orange-900 flex items-center justify-end w-full">
-                                            <svg class="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                            PDF
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-2025-002</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">MOBILE_APP</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">TechStart Inc</div>
-                                        <div class="text-sm text-gray-500">tech@start.io</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$18,200</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Mar 05, 2025</div>
-                                        <div class="text-xs text-gray-500">Due: Mar 20</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @elseif($invoice->status == 'Pending')
                                         <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                             ⏳ Pending
                                         </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('success','Payment reminder sent')" class="text-orange-600 hover:text-orange-900">Send Reminder</button>
-                                    </td>
-                                </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-2025-003</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">API_SERVICE</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">GlobalNet Ltd</div>
-                                        <div class="text-sm text-gray-500">billing@globalnet.com</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$9,800</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Feb 28, 2025</div>
-                                        <div class="text-xs text-red-500 font-medium">Due: Mar 14</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @else
                                         <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                             ✕ Overdue
                                         </span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('warning','Escalation sent')" class="text-red-600 hover:text-red-900 font-semibold">Escalate</button>
+                                        <div class="flex space-x-2 justify-end">
+                                            <button onclick="openInvoiceModal({{ json_encode($invoice) }})" class="text-orange-600 hover:text-orange-900">Edit</button>
+                                            <form action="{{ route('payments.destroy', $invoice->id) }}" method="POST" onsubmit="return confirm('Delete this invoice?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-2025-004</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">CRM_APP</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">RetailMax</div>
-                                        <div class="text-sm text-gray-500">pay@retailmax.co</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$31,000</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Mar 10, 2025</div>
-                                        <div class="text-xs text-gray-500">Due: Mar 25</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            ✓ Paid
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('info','Download')" class="text-orange-600 hover:text-orange-900 flex items-center justify-end w-full">
-                                            <svg class="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                            PDF
-                                        </button>
+                                @endforeach
+                                @if(count($invoices) == 0)
+                                <tr>
+                                    <td colspan="7" class="px-6 py-24 text-center text-gray-500">
+                                        No invoices found. <button onclick="openInvoiceModal()" class="text-orange-600 font-medium hover:underline">Create your first invoice</button>
                                     </td>
                                 </tr>
-                                <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 font-mono">#INV-2025-005</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">SITE1</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-gray-900">BrandForge</div>
-                                        <div class="text-sm text-gray-500">accounts@brandforge.com</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">$7,500</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">Mar 12, 2025</div>
-                                        <div class="text-xs text-gray-500">Due: Apr 01</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            ⏳ Pending
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('success','Reminder sent')" class="text-orange-600 hover:text-orange-900">Send Reminder</button>
-                                    </td>
-                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -311,6 +245,64 @@
             </main>
         </div>
     </div>
+    <!-- Invoice Modal -->
+    <div id="invoiceModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+            <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeInvoiceModal()"></div>
+            
+            <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-slate-200">
+                <div class="bg-white px-6 py-6 sm:p-8">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">New Invoice</h3>
+                    <form id="invoiceForm" method="POST" action="{{ route('payments.store') }}">
+                        @csrf
+                        <div id="methodField"></div>
+                        <div class="space-y-4">
+                            <div>
+                                <label for="client_name" class="block text-sm font-medium text-gray-700">Client Name</label>
+                                <input type="text" name="client_name" id="client_name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                            </div>
+                            <div>
+                                <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name</label>
+                                <select name="project_name" id="project_name" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                                    <option value="">Select Project</option>
+                                    @foreach($projects as $project)
+                                    <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div>
+                                <label for="amount" class="block text-sm font-medium text-gray-700">Amount ($)</label>
+                                <input type="number" step="0.01" name="amount" id="amount" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="due_date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                                    <input type="date" name="due_date" id="due_date" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                                    <select name="status" id="status" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
+                                        <option value="Pending">Pending</option>
+                                        <option value="Paid">Paid</option>
+                                        <option value="Overdue">Overdue</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse">
+                    <button type="submit" form="invoiceForm" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-600 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                        Save Invoice
+                    </button>
+                    <button type="button" onclick="closeInvoiceModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="{{ asset('assets/js/charts.js') }}"></script>
     <script>
@@ -321,7 +313,34 @@
             });
             el.classList.remove('border-transparent', 'text-gray-500');
             el.classList.add('active', 'border-orange-500', 'text-orange-600');
-            showToast('info', `Showing ${el.textContent.trim()} invoices`);
+        }
+
+        const modal = document.getElementById('invoiceModal');
+        const form = document.getElementById('invoiceForm');
+        const title = document.getElementById('modalTitle');
+        const methodField = document.getElementById('methodField');
+
+        function openInvoiceModal(invoice = null) {
+            modal.classList.remove('hidden');
+            if (invoice) {
+                title.innerText = 'Edit Invoice';
+                form.action = `/payments/${invoice.id}`;
+                methodField.innerHTML = `@method('PUT')`;
+                document.getElementById('client_name').value = invoice.client_name;
+                document.getElementById('project_name').value = invoice.project_name;
+                document.getElementById('amount').value = invoice.amount;
+                document.getElementById('due_date').value = invoice.due_date;
+                document.getElementById('status').value = invoice.status;
+            } else {
+                title.innerText = 'New Invoice';
+                form.action = "{{ route('payments.store') }}";
+                methodField.innerHTML = '';
+                form.reset();
+            }
+        }
+
+        function closeInvoiceModal() {
+            modal.classList.add('hidden');
         }
     </script>
 </body>

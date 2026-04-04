@@ -133,7 +133,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         <h3 class="mt-2 text-lg font-medium text-gray-900">No milestones yet</h3>
-                        <p class="mt-1 text-sm text-gray-500">Click "Add Milestone" to start tracking your project progress.</p>
+                        <p class="mt-1 text-sm text-gray-500">Click <button type="button" onclick="openModal()" class="text-orange-600 font-medium hover:underline cursor-pointer">"Add Milestone"</button> to start tracking your project progress.</p>
                         <div class="mt-6">
                             <button onclick="openModal()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                                 <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
@@ -146,11 +146,13 @@
 
                 <!-- Milestone Modal -->
                 <div id="timelineModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div class="fixed inset-0 bg-gray-50 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
-                        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                        <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-gray-200">
-                            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
+                        <!-- Background backdrop -->
+                        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+
+                        <!-- Modal Panel -->
+                        <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-slate-200">
+                            <div class="bg-white px-6 py-6 sm:p-8">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Add Milestone</h3>
                                 <form id="timelineForm" method="POST" action="{{ route('timeline.store') }}">
                                     @csrf

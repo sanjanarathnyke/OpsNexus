@@ -23,9 +23,12 @@ Route::get('/versioncontrol', function () {
     return view('versioncontrol');
 })->name('versioncontrol');
 
-Route::get('/payments', function () {
-    return view('payments');
-})->name('payments');
+use App\Http\Controllers\InvoiceController;
+
+Route::get('/payments', [InvoiceController::class, 'index'])->name('payments');
+Route::post('/payments', [InvoiceController::class, 'store'])->name('payments.store');
+Route::put('/payments/{invoice}', [InvoiceController::class, 'update'])->name('payments.update');
+Route::delete('/payments/{invoice}', [InvoiceController::class, 'destroy'])->name('payments.destroy');
 
 Route::get('/developer', [DevelopersController::class, 'index'])->name('developer');
 Route::post('/developer', [DevelopersController::class, 'store'])->name('developer.store');
