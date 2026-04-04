@@ -25,7 +25,7 @@
                         <p class="mt-1 text-sm text-gray-500">Manage your account, workspace, and integrations.</p>
                     </div>
                     <div class="mt-4 sm:mt-0">
-                        <button onclick="saveSettings()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-blue-500/30">
+                        <button onclick="saveSettings()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30">
                             Save Changes
                         </button>
                     </div>
@@ -34,7 +34,7 @@
                 <!-- Settings Tabs -->
                 <div class="border-b border-gray-200 mb-6">
                     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                        <button class="filter-tab active border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'profile')">Profile</button>
+                        <button class="filter-tab active border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'profile')">Profile</button>
                         <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'workspace')">Workspace</button>
                         <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'notifications-tab')">Notifications</button>
                         <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="switchTab(this,'integrations')">Integrations</button>
@@ -53,11 +53,11 @@
                             </div>
                             <div class="p-6 space-y-6">
                                 <div class="flex items-center space-x-6">
-                                    <div class="h-16 w-16 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-white font-bold text-2xl shadow-inner">
+                                    <div class="h-16 w-16 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-2xl shadow-inner">
                                         JD
                                     </div>
                                     <div>
-                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" onclick="showToast('info','Upload avatar dialog')">
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('info','Upload avatar dialog')">
                                             Change Avatar
                                         </button>
                                         <p class="mt-2 text-xs text-gray-500">JPG, PNG or GIF · Max 2MB</p>
@@ -66,34 +66,36 @@
                                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">First Name</label>
-                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="John" />
+                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="John" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Last Name</label>
-                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="Doe" />
+                                        <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="Doe" />
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Email Address</label>
-                                    <input type="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="john@devhub.io" />
+                                    <input type="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="john@devhub.io" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">GitHub Username</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
                                         <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">github.com/</span>
-                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="johndoe" placeholder="username" />
+                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="johndoe" placeholder="username" />
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Role / Title</label>
-                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="Lead Developer & Admin" />
+                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="Lead Developer & Admin" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Bio</label>
-                                    <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm resize-y" rows="3">Senior full-stack developer with 8+ years of experience building SaaS platforms and enterprise applications.</textarea>
+                                    <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm resize-y" rows="3">Senior full-stack developer with 8+ years of experience building SaaS platforms and enterprise applications.</textarea>
                                 </div>
                             </div>
                         </div>
+
+
 
                         <!-- Danger Zone -->
                         <div class="bg-white shadow-sm rounded-xl border border-red-200 overflow-hidden">
@@ -130,18 +132,18 @@
                             <div class="p-6 space-y-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Workspace Name</label>
-                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="DevHub Pro" />
+                                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="DevHub Pro" />
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Workspace URL</label>
                                     <div class="mt-1 flex rounded-md shadow-sm">
                                         <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">opsnexus.com/</span>
-                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" value="devhubpro" placeholder="your-workspace" />
+                                        <input type="text" class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" value="devhubpro" placeholder="your-workspace" />
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Timezone</label>
-                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                         <option selected>UTC+0 — London</option>
                                         <option>UTC-5 — New York</option>
                                         <option>UTC-8 — Los Angeles</option>
@@ -151,7 +153,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Default Project Visibility</label>
-                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <select class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                         <option selected>Private</option>
                                         <option>Team Only</option>
                                         <option>Public</option>
@@ -176,7 +178,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">Push Commits</h4>
                                         <p class="text-sm text-gray-500">Get notified when a developer pushes commits.</p>
                                     </div>
-                                    <button type="button" class="bg-blue-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
                                         <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -185,7 +187,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">Pull Request Events</h4>
                                         <p class="text-sm text-gray-500">Notifications for PR opens, reviews, and merges.</p>
                                     </div>
-                                    <button type="button" class="bg-blue-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
                                         <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -194,7 +196,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">Payment Updates</h4>
                                         <p class="text-sm text-gray-500">Invoice paid, overdue, or new payment received.</p>
                                     </div>
-                                    <button type="button" class="bg-blue-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
                                         <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -203,7 +205,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">Milestone Completion</h4>
                                         <p class="text-sm text-gray-500">When a project milestone is marked complete.</p>
                                     </div>
-                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
                                         <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -212,7 +214,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">Weekly Digest</h4>
                                         <p class="text-sm text-gray-500">A weekly summary email of all project activity.</p>
                                     </div>
-                                    <button type="button" class="bg-blue-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
                                         <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -221,7 +223,7 @@
                                         <h4 class="text-sm font-medium text-gray-900">New Developer Joins</h4>
                                         <p class="text-sm text-gray-500">When someone accepts a workspace invite.</p>
                                     </div>
-                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                    <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
                                         <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                     </button>
                                 </div>
@@ -264,7 +266,7 @@
                                     </div>
                                     <div class="flex items-center space-x-3">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Not Connected</span>
-                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" onclick="showToast('success','Redirecting to Slack OAuth...')">Connect</button>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Redirecting to Slack OAuth...')">Connect</button>
                                     </div>
                                 </div>
                                 <div class="p-6 flex items-center justify-between flex-wrap gap-4">
@@ -290,7 +292,7 @@
                                     </div>
                                     <div class="flex items-center space-x-3">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Not Connected</span>
-                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" onclick="showToast('success','Redirecting to Jira...')">Connect</button>
+                                        <button class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Redirecting to Jira...')">Connect</button>
                                     </div>
                                 </div>
                             </div>
@@ -309,20 +311,20 @@
                             <div class="p-6 space-y-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Current Password</label>
-                                    <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Enter current password" />
+                                    <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Enter current password" />
                                 </div>
                                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">New Password</label>
-                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Min 8 characters" />
+                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Min 8 characters" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Re-enter new password" />
+                                        <input type="password" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Re-enter new password" />
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" onclick="showToast('success','Password updated successfully!')">
+                                    <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('success','Password updated successfully!')">
                                         Update Password
                                     </button>
                                 </div>
@@ -333,7 +335,7 @@
                                             <h4 class="text-sm font-medium text-gray-900">Two-Factor Authentication (2FA)</h4>
                                             <p class="text-sm text-gray-500">Add an extra layer of security to your account.</p>
                                         </div>
-                                        <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
+                                        <button type="button" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="false" onclick="toggleSwitch(this)">
                                             <span class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                         </button>
                                     </div>
@@ -342,7 +344,7 @@
                                             <h4 class="text-sm font-medium text-gray-900">Login Alerts</h4>
                                             <p class="text-sm text-gray-500">Email me when a new device signs in to my account.</p>
                                         </div>
-                                        <button type="button" class="bg-blue-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
+                                        <button type="button" class="bg-orange-600 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 group" role="switch" aria-checked="true" onclick="toggleSwitch(this)">
                                             <span class="translate-x-5 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 group-hover:shadow-md"></span>
                                         </button>
                                     </div>
@@ -361,11 +363,11 @@
     <script>
         function switchTab(el, tab) {
             document.querySelectorAll('.filter-tab').forEach(t => {
-                t.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
                 t.classList.add('border-transparent', 'text-gray-500');
             });
             el.classList.remove('border-transparent', 'text-gray-500');
-            el.classList.add('active', 'border-blue-500', 'text-blue-600');
+            el.classList.add('active', 'border-orange-500', 'text-orange-600');
             
             // Hide all tabs
             ['profile', 'workspace', 'notifications-tab', 'integrations', 'security'].forEach(t => {
@@ -392,14 +394,14 @@
             
             if (isChecked) {
                 btn.setAttribute('aria-checked', 'false');
-                btn.classList.remove('bg-blue-600');
+                btn.classList.remove('bg-orange-600');
                 btn.classList.add('bg-gray-200');
                 span.classList.remove('translate-x-5');
                 span.classList.add('translate-x-0');
             } else {
                 btn.setAttribute('aria-checked', 'true');
                 btn.classList.remove('bg-gray-200');
-                btn.classList.add('bg-blue-600');
+                btn.classList.add('bg-orange-600');
                 span.classList.remove('translate-x-0');
                 span.classList.add('translate-x-5');
             }

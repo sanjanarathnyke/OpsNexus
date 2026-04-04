@@ -28,7 +28,7 @@
                         <p class="mt-1 text-sm text-gray-500">Here's what's happening with your projects today.</p>
                     </div>
                     <div class="mt-4 sm:mt-0">
-                        <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-blue-500/30">
+                        <button class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>
@@ -43,8 +43,8 @@
                     <div class="bg-white overflow-hidden rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
                         <div class="p-5">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-50 rounded-md p-3 group-hover:bg-blue-100 transition-colors">
-                                    <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="flex-shrink-0 bg-orange-50 rounded-md p-3 group-hover:bg-orange-100 transition-colors">
+                                    <svg class="h-6 w-6 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
@@ -169,7 +169,7 @@
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">Project Progress</h3>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500">Monthly completion rate (%)</p>
                             </div>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
                                 2025
                             </span>
                         </div>
@@ -204,7 +204,7 @@
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Activity</h3>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500">Developer events</p>
                             </div>
-                            <a href="{{ route('versioncontrol') }}" class="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors">View All &rarr;</a>
+                            <a href="{{ route('versioncontrol') }}" class="text-sm font-medium text-orange-600 hover:text-orange-500 transition-colors">View All &rarr;</a>
                         </div>
                         <div class="p-6">
                             <ul class="-mb-8">
@@ -213,7 +213,7 @@
                                         <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
                                         <div class="relative flex space-x-3">
                                             <div>
-                                                <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white text-white text-xs font-bold shadow-sm">
+                                                <span class="h-8 w-8 rounded-full bg-orange-500 flex items-center justify-center ring-8 ring-white text-white text-xs font-bold shadow-sm">
                                                     JD
                                                 </span>
                                             </div>
@@ -322,7 +322,7 @@
                                 <h3 class="text-lg leading-6 font-medium text-gray-900">Top Projects</h3>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500">By completion progress</p>
                             </div>
-                            <a href="{{ route('projects') }}" class="text-sm font-medium text-blue-600 hover:text-blue-500 transition-colors">View All &rarr;</a>
+                            <a href="{{ route('projects') }}" class="text-sm font-medium text-orange-600 hover:text-orange-500 transition-colors">View All &rarr;</a>
                         </div>
                         <div class="p-6">
                             <div class="space-y-6">
@@ -330,10 +330,10 @@
                                 <div>
                                     <div class="flex items-center justify-between mb-1">
                                         <span class="text-sm font-medium text-gray-900">ERP_SYSTEM</span>
-                                        <span class="text-sm font-semibold text-blue-600">92%</span>
+                                        <span class="text-sm font-semibold text-orange-600">92%</span>
                                     </div>
                                     <div class="w-full bg-gray-200 rounded-full h-2">
-                                        <div class="bg-blue-600 h-2 rounded-full" style="width: 92%"></div>
+                                        <div class="bg-orange-600 h-2 rounded-full" style="width: 92%"></div>
                                     </div>
                                     <p class="mt-1 text-xs text-gray-500">Due Mar 30 · 5 devs</p>
                                 </div>

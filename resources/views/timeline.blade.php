@@ -25,13 +25,13 @@
                         <p class="mt-1 text-sm text-gray-500">Visual milestones and phase tracking for all projects.</p>
                     </div>
                     <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row gap-3">
-                        <select id="projectFilter" onchange="filterProjects(this.value)" class="block w-full sm:w-auto pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm">
+                        <select id="projectFilter" onchange="filterProjects(this.value)" class="block w-full sm:w-auto pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md shadow-sm">
                             <option value="all">All Projects</option>
                             @foreach($projects as $project)
                             <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
                             @endforeach
                         </select>
-                        <button onclick="openModal()" class="inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        <button onclick="openModal()" class="inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">
                             <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
                             Add Milestone
                         </button>
@@ -60,10 +60,10 @@
                             <div class="mb-8">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Overall Progress</span>
-                                    <span class="text-sm font-bold text-blue-600">{{ $progress }}%</span>
+                                    <span class="text-sm font-bold text-orange-600">{{ $progress }}%</span>
                                 </div>
                                 <div class="w-full bg-gray-200 rounded-full h-2">
-                                    <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: {{ $progress }}%"></div>
+                                    <div class="bg-orange-600 h-2 rounded-full transition-all duration-500" style="width: {{ $progress }}%"></div>
                                 </div>
                             </div>
                             
@@ -76,7 +76,7 @@
                                         $dotClass = 'bg-green-500 border-green-500 text-white';
                                         $icon = '✓';
                                     } elseif($milestone->status == 'In Progress') {
-                                        $dotClass = 'bg-blue-500 border-blue-500 text-white animate-pulse';
+                                        $dotClass = 'bg-orange-500 border-orange-500 text-white animate-pulse';
                                         $icon = '▶';
                                     } elseif($milestone->status == 'Delayed') {
                                         $dotClass = 'bg-yellow-500 border-yellow-500 text-white';
@@ -91,7 +91,7 @@
                                         <div class="flex justify-between items-start mb-1">
                                             <h4 class="text-base font-bold text-gray-900">{{ $milestone->title }}</h4>
                                             <div class="flex space-x-2">
-                                                <button onclick="openModal({{ json_encode($milestone) }})" class="text-gray-400 hover:text-blue-600 transition-colors p-1" title="Edit">
+                                                <button onclick="openModal({{ json_encode($milestone) }})" class="text-gray-400 hover:text-orange-600 transition-colors p-1" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                                 </button>
                                                 <form action="{{ route('timeline.destroy', $milestone->id) }}" method="POST" onsubmit="return confirm('Delete this milestone?')" class="m-0">
@@ -108,7 +108,7 @@
                                             @php
                                                 $badgeClass = 'bg-gray-100 text-gray-800';
                                                 if($milestone->status == 'Completed') $badgeClass = 'bg-green-100 text-green-800';
-                                                elseif($milestone->status == 'In Progress') $badgeClass = 'bg-blue-100 text-blue-800';
+                                                elseif($milestone->status == 'In Progress') $badgeClass = 'bg-orange-100 text-orange-800';
                                                 elseif($milestone->status == 'Delayed') $badgeClass = 'bg-yellow-100 text-yellow-800';
                                             @endphp
                                             <span class="inline-flex items-center px-2 py-0.5 rounded {{ $badgeClass }}">
@@ -135,7 +135,7 @@
                         <h3 class="mt-2 text-lg font-medium text-gray-900">No milestones yet</h3>
                         <p class="mt-1 text-sm text-gray-500">Click "Add Milestone" to start tracking your project progress.</p>
                         <div class="mt-6">
-                            <button onclick="openModal()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <button onclick="openModal()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
                                 <svg class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
                                 Add Milestone
                             </button>
@@ -147,7 +147,7 @@
                 <!-- Milestone Modal -->
                 <div id="timelineModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
+                        <div class="fixed inset-0 bg-gray-50 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
                         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                         <div class="inline-block align-bottom bg-white rounded-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-gray-200">
                             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -158,7 +158,7 @@
                                     <div class="space-y-4">
                                         <div>
                                             <label for="project_name" class="block text-sm font-medium text-gray-700">Project Name</label>
-                                            <select name="project_name" id="project_name" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                            <select name="project_name" id="project_name" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                 <option value="">Select Project</option>
                                                 @foreach($projects as $project)
                                                 <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
@@ -167,20 +167,20 @@
                                         </div>
                                         <div>
                                             <label for="title" class="block text-sm font-medium text-gray-700">Milestone Title</label>
-                                            <input type="text" name="title" id="title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="e.g. Frontend UI">
+                                            <input type="text" name="title" id="title" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="e.g. Frontend UI">
                                         </div>
                                         <div>
                                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                                            <textarea name="description" id="description" required rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Describe the work involved..."></textarea>
+                                            <textarea name="description" id="description" required rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm" placeholder="Describe the work involved..."></textarea>
                                         </div>
                                         <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-4">
                                             <div>
                                                 <label for="due_date" class="block text-sm font-medium text-gray-700">Due Date</label>
-                                                <input type="date" name="due_date" id="due_date" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <input type="date" name="due_date" id="due_date" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                             </div>
                                             <div>
                                                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                                                <select name="status" id="status" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                <select name="status" id="status" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                     <option value="Upcoming">Upcoming</option>
                                                     <option value="In Progress">In Progress</option>
                                                     <option value="Completed">Completed</option>
@@ -192,10 +192,10 @@
                                 </form>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="submit" form="timelineForm" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                <button type="submit" form="timelineForm" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-600 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                                     Save Milestone
                                 </button>
-                                <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                                     Cancel
                                 </button>
                             </div>

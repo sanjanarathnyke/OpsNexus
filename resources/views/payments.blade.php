@@ -25,13 +25,13 @@
                         <p class="mt-1 text-sm text-gray-500">Track invoices, payments, and revenue.</p>
                     </div>
                     <div class="mt-4 flex sm:mt-0 sm:ml-4 gap-3">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors" onclick="showToast('info','Export report')">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors" onclick="showToast('info','Export report')">
                             <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                             Export
                         </button>
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-blue-500/30" onclick="showToast('success','New invoice dialog')">
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30" onclick="showToast('success','New invoice dialog')">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>
@@ -70,7 +70,7 @@
                     <div class="bg-white overflow-hidden rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
                         <div class="p-5">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-50 rounded-md p-3 group-hover:bg-blue-100 transition-colors text-blue-600 font-bold">
+                                <div class="flex-shrink-0 bg-orange-50 rounded-md p-3 group-hover:bg-orange-100 transition-colors text-orange-600 font-bold">
                                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                                 </div>
                                 <div class="ml-4 w-0 flex-1">
@@ -161,7 +161,7 @@
 
                 <div class="border-b border-gray-200 mt-8 mb-4">
                     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                        <button class="filter-tab active border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setPayTab(this)">
+                        <button class="filter-tab active border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setPayTab(this)">
                             All Invoices
                         </button>
                         <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setPayTab(this)">
@@ -210,7 +210,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('info','Download invoice')" class="text-blue-600 hover:text-blue-900 flex items-center justify-end w-full">
+                                        <button onclick="showToast('info','Download invoice')" class="text-orange-600 hover:text-orange-900 flex items-center justify-end w-full">
                                             <svg class="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                             PDF
                                         </button>
@@ -234,7 +234,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('success','Payment reminder sent')" class="text-indigo-600 hover:text-indigo-900">Send Reminder</button>
+                                        <button onclick="showToast('success','Payment reminder sent')" class="text-orange-600 hover:text-orange-900">Send Reminder</button>
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-gray-50 transition-colors">
@@ -276,7 +276,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('info','Download')" class="text-blue-600 hover:text-blue-900 flex items-center justify-end w-full">
+                                        <button onclick="showToast('info','Download')" class="text-orange-600 hover:text-orange-900 flex items-center justify-end w-full">
                                             <svg class="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                                             PDF
                                         </button>
@@ -300,7 +300,7 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <button onclick="showToast('success','Reminder sent')" class="text-indigo-600 hover:text-indigo-900">Send Reminder</button>
+                                        <button onclick="showToast('success','Reminder sent')" class="text-orange-600 hover:text-orange-900">Send Reminder</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -316,11 +316,11 @@
     <script>
         function setPayTab(el) {
             document.querySelectorAll('.filter-tab').forEach(t => {
-                t.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
                 t.classList.add('border-transparent', 'text-gray-500');
             });
             el.classList.remove('border-transparent', 'text-gray-500');
-            el.classList.add('active', 'border-blue-500', 'text-blue-600');
+            el.classList.add('active', 'border-orange-500', 'text-orange-600');
             showToast('info', `Showing ${el.textContent.trim()} invoices`);
         }
     </script>

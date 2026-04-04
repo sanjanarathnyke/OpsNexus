@@ -25,7 +25,7 @@
                         <p class="mt-1 text-sm text-gray-500">Git activity across all repositories.</p>
                     </div>
                     <div class="mt-4 sm:mt-0">
-                        <select class="block w-full sm:w-48 pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm bg-white">
+                        <select class="block w-full sm:w-48 pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md shadow-sm bg-white">
                             <option>All Repos</option>
                             <option>ERP_SYSTEM</option>
                             <option>MOBILE_APP</option>
@@ -40,7 +40,7 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-sm font-medium text-gray-500">Commits Today</span>
-                            <div class="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                            <div class="h-8 w-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
                                 ⬆
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                 <!-- Tabs -->
                 <div class="border-b border-gray-200 mb-6">
                     <nav class="-mb-px flex space-x-8 overflow-x-auto" aria-label="Tabs">
-                        <button onclick="setVCTab(this)" class="filter-tab active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">All Events</button>
+                        <button onclick="setVCTab(this)" class="filter-tab active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-orange-500 text-orange-600">All Events</button>
                         <button onclick="setVCTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Push</button>
                         <button onclick="setVCTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Pull Requests</button>
                         <button onclick="setVCTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Merges</button>
@@ -102,15 +102,15 @@
                     <div class="divide-y divide-gray-100">
                         <!-- Push Event -->
                         <div class="p-5 hover:bg-gray-50 transition-colors flex items-start space-x-4">
-                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold border border-orange-200">
                                 ⬆
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@john</span> pushed 3 commits to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-blue-600">ERP_SYSTEM</span>
+                                    <span class="font-semibold text-gray-900">@john</span> pushed 3 commits to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-orange-600">ERP_SYSTEM</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
-                                    <span class="font-mono text-xs text-blue-500">a3f8c21</span>
+                                    <span class="font-mono text-xs text-orange-500">a3f8c21</span>
                                     <span>&middot;</span>
                                     <span class="truncate">"Fix: resolve payment gateway timeout issue"</span>
                                     <span>&middot;</span>
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                             <div class="flex-shrink-0">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
                                     Push
                                 </span>
                             </div>
@@ -131,7 +131,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@dave</span> opened pull request <strong>#42</strong> &mdash; <em class="text-gray-600">feat: add user auth middleware</em> in <span class="font-semibold text-blue-600">API_SERVICE</span>
+                                    <span class="font-semibold text-gray-900">@dave</span> opened pull request <strong>#42</strong> &mdash; <em class="text-gray-600">feat: add user auth middleware</em> in <span class="font-semibold text-orange-600">API_SERVICE</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-gray-100 text-gray-800">
@@ -157,7 +157,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@john</span> merged branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">feature-login</span> into <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-blue-600">SITE1</span>
+                                    <span class="font-semibold text-gray-900">@john</span> merged branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">feature-login</span> into <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-orange-600">SITE1</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span>PR #38</span>
@@ -181,7 +181,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@mike</span> created branch <span class="font-mono text-xs bg-orange-50 px-1.5 py-0.5 rounded text-orange-700">hotfix/payment-crash</span> from <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-blue-600">MOBILE_APP</span>
+                                    <span class="font-semibold text-gray-900">@mike</span> created branch <span class="font-mono text-xs bg-orange-50 px-1.5 py-0.5 rounded text-orange-700">hotfix/payment-crash</span> from <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-orange-600">MOBILE_APP</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span>Branch created</span>
@@ -198,15 +198,15 @@
 
                         <!-- Push Event -->
                         <div class="p-5 hover:bg-gray-50 transition-colors flex items-start space-x-4">
-                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold border border-orange-200">
                                 ⬆
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@sarah</span> pushed 7 commits to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">develop</span> in <span class="font-semibold text-blue-600">CRM_APP</span>
+                                    <span class="font-semibold text-gray-900">@sarah</span> pushed 7 commits to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">develop</span> in <span class="font-semibold text-orange-600">CRM_APP</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
-                                    <span class="font-mono text-xs text-blue-500">7d2e190</span>
+                                    <span class="font-mono text-xs text-orange-500">7d2e190</span>
                                     <span>&middot;</span>
                                     <span class="truncate">"refactor: migrate to TypeScript strict mode"</span>
                                     <span>&middot;</span>
@@ -214,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="flex-shrink-0">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
                                     Push
                                 </span>
                             </div>
@@ -227,7 +227,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@alice</span> closed pull request <strong>#24</strong> &mdash; <em class="text-gray-600">fix: resolve N+1 query in user list</em> in <span class="font-semibold text-blue-600">ERP_SYSTEM</span>
+                                    <span class="font-semibold text-gray-900">@alice</span> closed pull request <strong>#24</strong> &mdash; <em class="text-gray-600">fix: resolve N+1 query in user list</em> in <span class="font-semibold text-orange-600">ERP_SYSTEM</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span>Closed without merging</span>
@@ -249,7 +249,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@dave</span> merged branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">release/v2.1</span> into <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-blue-600">API_SERVICE</span>
+                                    <span class="font-semibold text-gray-900">@dave</span> merged branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">release/v2.1</span> into <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">main</span> in <span class="font-semibold text-orange-600">API_SERVICE</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span>PR #39</span>
@@ -273,7 +273,7 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@ryan</span> deleted branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 line-through">temp/old-layout</span> in <span class="font-semibold text-blue-600">SITE1</span>
+                                    <span class="font-semibold text-gray-900">@ryan</span> deleted branch <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-500 line-through">temp/old-layout</span> in <span class="font-semibold text-orange-600">SITE1</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
                                     <span>Branch deleted after merge</span>
@@ -290,15 +290,15 @@
 
                         <!-- Push Event -->
                         <div class="p-5 hover:bg-gray-50 transition-colors flex items-start space-x-4">
-                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold border border-blue-200">
+                            <div class="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold border border-orange-200">
                                 ⬆
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-800">
-                                    <span class="font-semibold text-gray-900">@john</span> force-pushed to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">feature/redesign-dashboard</span> in <span class="font-semibold text-blue-600">DASHBOARD</span>
+                                    <span class="font-semibold text-gray-900">@john</span> force-pushed to <span class="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-700">feature/redesign-dashboard</span> in <span class="font-semibold text-orange-600">DASHBOARD</span>
                                 </p>
                                 <div class="mt-1 flex items-center text-sm text-gray-500 space-x-2">
-                                    <span class="font-mono text-xs text-blue-500">f9a3b77</span>
+                                    <span class="font-mono text-xs text-orange-500">f9a3b77</span>
                                     <span>&middot;</span>
                                     <span class="truncate">"style: complete UI overhaul with new design system"</span>
                                     <span>&middot;</span>
@@ -306,7 +306,7 @@
                                 </div>
                             </div>
                             <div class="flex-shrink-0">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200">
                                     Push
                                 </span>
                             </div>
@@ -323,12 +323,12 @@
         function setVCTab(el) {
             // Remove active state from all tabs
             document.querySelectorAll('.filter-tab').forEach(t => {
-                t.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
                 t.classList.add('border-transparent', 'text-gray-500');
             });
             
             // Add active state to clicked tab
-            el.classList.add('active', 'border-blue-500', 'text-blue-600');
+            el.classList.add('active', 'border-orange-500', 'text-orange-600');
             el.classList.remove('border-transparent', 'text-gray-500');
         }
     </script>

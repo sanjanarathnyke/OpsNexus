@@ -25,7 +25,7 @@
                         <p class="mt-1 text-sm text-gray-500">Stay updated with your team's activity.</p>
                     </div>
                     <div class="mt-4 sm:mt-0 flex gap-3">
-                        <button onclick="markAllRead()" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        <button onclick="markAllRead()" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors">
                             <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
                             Mark All Read
                         </button>
@@ -41,7 +41,7 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5 hover:shadow-md transition-shadow">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-sm font-medium text-gray-500">Unread</span>
-                            <div class="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                            <div class="h-8 w-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
                                 🔔
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                 <!-- Tabs -->
                 <div class="border-b border-gray-200 mb-6">
                     <nav class="-mb-px flex space-x-8 overflow-x-auto" aria-label="Tabs">
-                        <button onclick="setNTab(this)" class="filter-tab active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-blue-500 text-blue-600">All</button>
+                        <button onclick="setNTab(this)" class="filter-tab active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-orange-500 text-orange-600">All</button>
                         <button onclick="setNTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Unread (3)</button>
                         <button onclick="setNTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Push Events</button>
                         <button onclick="setNTab(this)" class="filter-tab whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">Pull Requests</button>
@@ -113,12 +113,12 @@
         function setNTab(el) {
             // Remove active state from all tabs
             document.querySelectorAll('.filter-tab').forEach(t => {
-                t.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
                 t.classList.add('border-transparent', 'text-gray-500');
             });
             
             // Add active state to clicked tab
-            el.classList.add('active', 'border-blue-500', 'text-blue-600');
+            el.classList.add('active', 'border-orange-500', 'text-orange-600');
             el.classList.remove('border-transparent', 'text-gray-500');
         }
     </script>

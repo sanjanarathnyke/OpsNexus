@@ -25,7 +25,7 @@
                         <p class="mt-1 text-sm text-gray-500">Manage your development team and track contributions.</p>
                     </div>
                     <div class="mt-4 sm:mt-0">
-                        <button onclick="openModal()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors shadow-blue-500/30">
+                        <button onclick="openModal()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors shadow-orange-500/30">
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
@@ -38,7 +38,7 @@
                 <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
                     <div class="bg-white overflow-hidden rounded-xl shadow-sm border border-gray-100 p-5">
                         <div class="flex items-center">
-                            <div class="flex-shrink-0 bg-blue-50 rounded-md p-3">
+                            <div class="flex-shrink-0 bg-orange-50 rounded-md p-3">
                                 <span class="text-xl">👥</span>
                             </div>
                             <div class="ml-4 w-0 flex-1">
@@ -92,7 +92,7 @@
 
                 <div class="border-b border-gray-200 mt-8 mb-4">
                     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                        <button class="filter-tab active border-blue-500 text-blue-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setDevTab(this, 'all')">
+                        <button class="filter-tab active border-orange-500 text-orange-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setDevTab(this, 'all')">
                             All ({{ count($developers) }})
                         </button>
                         <button class="filter-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" onclick="setDevTab(this, 'online')">
@@ -122,7 +122,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
-                                                <div class="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
+                                                <div class="h-10 w-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
                                                     {{ strtoupper(substr($developer->dev_name, 0, 2)) }}
                                                 </div>
                                             </div>
@@ -133,12 +133,12 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="https://github.com/{{ $developer->github_username }}" target="_blank" class="text-sm text-blue-600 hover:text-blue-900 hover:underline transition-colors">
+                                        <a href="https://github.com/{{ $developer->github_username }}" target="_blank" class="text-sm text-orange-600 hover:text-orange-900 hover:underline transition-colors">
                                             @ {{ $developer->github_username }}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                                        <span class="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 text-orange-800">
                                             {{ $developer->role }}
                                         </span>
                                     </td>
@@ -162,7 +162,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-3">
-                                            <button onclick="openModal({{ json_encode($developer) }})" class="text-indigo-600 hover:text-indigo-900 transition-colors">Edit</button>
+                                            <button onclick="openModal({{ json_encode($developer) }})" class="text-orange-600 hover:text-orange-900 transition-colors">Edit</button>
                                             <form action="{{ route('developer.destroy', $developer->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this developer?')" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -188,7 +188,7 @@
                 <div id="devModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                     <!-- Background overlay -->
                     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
+                        <div class="fixed inset-0 bg-gray-50 bg-opacity-75 transition-opacity backdrop-blur-sm" aria-hidden="true" onclick="closeModal()"></div>
                         
                         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                         
@@ -206,27 +206,27 @@
                                                 <div class="space-y-4">
                                                     <div>
                                                         <label for="dev_name" class="block text-sm font-medium text-gray-700">Name</label>
-                                                        <input type="text" name="dev_name" id="dev_name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <input type="text" name="dev_name" id="dev_name" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                     </div>
                                                     
                                                     <div>
                                                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                                        <input type="email" name="email" id="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <input type="email" name="email" id="email" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                     </div>
                                                     
                                                     <div>
                                                         <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                                                        <input type="text" name="role" id="role" placeholder="e.g. Senior Dev" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <input type="text" name="role" id="role" placeholder="e.g. Senior Dev" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                     </div>
                                                     
                                                     <div>
                                                         <label for="github_username" class="block text-sm font-medium text-gray-700">GitHub Username</label>
-                                                        <input type="text" name="github_username" id="github_username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <input type="text" name="github_username" id="github_username" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                     </div>
                                                     
                                                     <div>
                                                         <label for="pro_name" class="block text-sm font-medium text-gray-700">Assigned Project</label>
-                                                        <select name="pro_name" id="pro_name" class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <select name="pro_name" id="pro_name" class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                             <option value="">Select Project</option>
                                                             @foreach($projects as $project)
                                                                 <option value="{{ $project->project_name }}">{{ $project->project_name }}</option>
@@ -236,7 +236,7 @@
                                                     
                                                     <div>
                                                         <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                                                        <select name="status" id="status" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                                        <select name="status" id="status" required class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm">
                                                             <option value="Online">Online</option>
                                                             <option value="Offline">Offline</option>
                                                             <option value="Busy">Busy</option>
@@ -249,10 +249,10 @@
                                 </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                <button type="submit" form="devForm" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                <button type="submit" form="devForm" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-orange-600 text-base font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                                     Save Developer
                                 </button>
-                                <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
+                                <button type="button" onclick="closeModal()" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
                                     Cancel
                                 </button>
                             </div>
@@ -268,11 +268,11 @@
         function setDevTab(btn, filter) {
             // Update Tab UI
             document.querySelectorAll('.filter-tab').forEach(t => {
-                t.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                t.classList.remove('active', 'border-orange-500', 'text-orange-600');
                 t.classList.add('border-transparent', 'text-gray-500');
             });
             btn.classList.remove('border-transparent', 'text-gray-500');
-            btn.classList.add('active', 'border-blue-500', 'text-blue-600');
+            btn.classList.add('active', 'border-orange-500', 'text-orange-600');
             
             // Filter elements if needed
             const rows = document.querySelectorAll('.dev-row');
