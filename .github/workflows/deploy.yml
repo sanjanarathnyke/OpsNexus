@@ -10,54 +10,96 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to Server
+      - name: Deploy to Production Server
         uses: appleboy/ssh-action@v1.0.0
+
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || 22 }}
+
           script: |
             set -e
 
             echo "🚀 Starting deployment..."
 
-            # Navigate to project directory
+            ####################################
+            # NAVIGATE TO PROJECT
+            ####################################
             cd /var/www/html/OpsNexus
 
-            # Pull latest code
-            echo "📥 Pulling latest changes..."
-            git pull origin main
+            ####################################
+            # ENABLE MAINTENANCE MODE
+            ####################################
+            echo "🛠 Enabling maintenance mode..."
+            php artisan down || true
 
-            # Install dependencies if changed
-            if git diff --name-only HEAD@{1} HEAD | grep -q "composer.json\|composer.lock"; then
-              echo "📦 Installing dependencies..."
-              composer install --no-dev --optimize-autoloader
-            fi
+            ####################################
+            # UPDATE SOURCE CODE
+            ####################################
+            echo "📥 Fetching latest changes..."
+            git fetch origin
 
-            # Ensure .env exists
+            echo "🔄 Resetting repository..."
+            git reset --hard origin/main
+
+            ####################################
+            # CHECK ENV FILE
+            ####################################
             if [ ! -f .env ]; then
-              echo "📝 Creating .env..."
-              cp .env.example .env
-              php artisan key:generate
+              echo "❌ ERROR: .env file missing!"
+              exit 1
             fi
 
-            # Optimize Laravel
+            ####################################
+            # INSTALL DEPENDENCIES
+            ####################################
+            echo "📦 Installing Composer dependencies..."
+            composer install \
+              --no-dev \
+              --prefer-dist \
+              --no-interaction \
+              --optimize-autoloader
+
+            ####################################
+            # RUN DATABASE MIGRATIONS
+            ####################################
+            # echo "🗄 Running migrations..."
+            # php artisan migrate --force
+
+            ####################################
+            # OPTIMIZE LARAVEL
+            ####################################
             echo "🧹 Optimizing Laravel..."
-            php artisan config:clear
-            php artisan route:clear
-            php artisan cache:clear
-            php artisan view:clear
+            php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
+            php artisan view:cache
 
-            # Set permissions
+            ####################################
+            # FIX PERMISSIONS
+            ####################################
             echo "🔐 Setting permissions..."
-            chown -R www-data:www-data storage bootstrap/cache
-            chmod -R 775 storage bootstrap/cache
+            sudo chown -R www-data:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
 
-            # Restart Apache
-            echo "🔄 Restarting Apache..."
-            sudo systemctl restart apache2
+            ####################################
+            # RESTART QUEUES (IF USED)
+            ####################################
+            echo "🔄 Restarting queues..."
+            php artisan queue:restart || true
 
-            echo "✅ Deployment complete!"
+            ####################################
+            # RELOAD APACHE SAFELY
+            ####################################
+            echo "🌐 Reloading Apache..."
+            sudo systemctl reload apache2
+
+            ####################################
+            # DISABLE MAINTENANCE MODE
+            ####################################
+            echo "✅ Disabling maintenance mode..."
+            php artisan up
+
+            echo "🎉 Deployment completed successfully!"
