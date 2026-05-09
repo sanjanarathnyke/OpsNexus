@@ -22,10 +22,10 @@ jobs:
           script: |
             set -e
 
-            echo "🚀 Starting deployment..."
+            echo "🚀 Starting OpsNexus deployment..."
 
             ####################################
-            # NAVIGATE TO PROJECT
+            # GO TO PROJECT DIRECTORY
             ####################################
             cd /var/www/html/OpsNexus
 
@@ -38,22 +38,22 @@ jobs:
             ####################################
             # UPDATE SOURCE CODE
             ####################################
-            echo "📥 Fetching latest changes..."
+            echo "📥 Fetching latest code..."
             git fetch origin
 
-            echo "🔄 Resetting repository..."
+            echo "🔄 Resetting to latest main branch..."
             git reset --hard origin/main
 
             ####################################
-            # CHECK ENV FILE
+            # VERIFY ENV FILE
             ####################################
             if [ ! -f .env ]; then
-              echo "❌ ERROR: .env file missing!"
+              echo "❌ ERROR: .env file not found!"
               exit 1
             fi
 
             ####################################
-            # INSTALL DEPENDENCIES
+            # INSTALL PHP DEPENDENCIES
             ####################################
             echo "📦 Installing Composer dependencies..."
             composer install \
@@ -65,14 +65,15 @@ jobs:
             ####################################
             # RUN DATABASE MIGRATIONS
             ####################################
-            # echo "🗄 Running migrations..."
-            # php artisan migrate --force
+            echo "🗄 Running migrations..."
+            php artisan migrate --force
 
             ####################################
-            # OPTIMIZE LARAVEL
+            # CLEAR & REBUILD LARAVEL CACHE
             ####################################
             echo "🧹 Optimizing Laravel..."
             php artisan optimize:clear
+
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
@@ -80,12 +81,12 @@ jobs:
             ####################################
             # FIX PERMISSIONS
             ####################################
-            echo "🔐 Setting permissions..."
+            echo "🔐 Fixing permissions..."
             sudo chown -R www-data:www-data storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
             ####################################
-            # RESTART QUEUES (IF USED)
+            # RESTART QUEUES IF USED
             ####################################
             echo "🔄 Restarting queues..."
             php artisan queue:restart || true
@@ -99,7 +100,7 @@ jobs:
             ####################################
             # DISABLE MAINTENANCE MODE
             ####################################
-            echo "✅ Disabling maintenance mode..."
+            echo "✅ Bringing application online..."
             php artisan up
 
             echo "🎉 Deployment completed successfully!"
